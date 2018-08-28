@@ -1,27 +1,29 @@
 # State of the Space
 
-Matt G Condon's IDEO CoLab speech on [Getting Up to Speed On Blockchain](https://www.youtube.com/watch?v=PvO3J4AKLWo)
+1. [Reading List](#reading)
+    1. [Tweet Storms](#tweets)
+2. [Lecture Notes](#lecture)
+    1. [Getting Up To Speed On Blockchain](#intro)
+    2. [Student Onboarding](#onboarding)
+    3. [Incentive Feedback Loops](#incentives)
+    4. [Public Key Cryptography](#pke)
+3. [Next Class](#next)
 
-## Reading List
+## Class Reading <a name="reading"></a>
 
 **Before This Class**
 * [Incentive Loops](https://medium.com/@Trustless_State/incentive-loops-how-crypto-actually-fixes-stuff-a7aa7aa3ae04)
 * [Basics of Hash Functions](https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b)
 * [Public Key Crytography](https://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo)
 
-**Before Next Class**
-* [Cypherpunk's Manifesto](https://www.activism.net/cypherpunk/manifesto.html)
-* [Bitcoin's Academic Pedigree](https://queue.acm.org/detail.cfm?id=3136559)
-* [Bitcoin's Whitepaper](https://bitcoin.org/bitcoin.pdf)
-
-**Tweeted Terms of the Week**
+### Tweeted Terms of the Week <a name="tweets"></a>
 
 ---
-id: 1
-term: Harberger Tax
-status: Active
-author: Amar Singh <ars9he@virginia.edu> 
-created: 2018-8-28
+id: 1;
+term: Harberger Tax;
+status: Active;
+author: Amar Singh <ars9he@virginia.edu>; 
+created: 2018-8-28;
 authors: SimonDLR, Glen Weyl, Eric Posner 
 
 ---
@@ -37,11 +39,11 @@ authors: SimonDLR, Glen Weyl, Eric Posner
 * [Vitalik Blog Post On Radical Markets](https://vitalik.ca/general/2018/04/20/radical_markets.html)
 
 ---
-id: 2
-term: Bloom Filter
-status: Active
-author: Amar Singh <ars9he@virginia.edu> 
-created: 2018-8-28
+id: 2;
+term: Bloom Filter;
+status: Active;
+author: Amar Singh <ars9he@virginia.edu>; 
+created: 2018-8-28;
 authors: chris_seberino 
 
 ---
@@ -57,33 +59,25 @@ Disadvantage: Sometimes give false positives (may claim an object is a member of
 * [Ethereum Stack Exhange Explanation](https://ethereum.stackexchange.com/questions/16117/proving-the-existence-of-logs-to-the-blockchain)
 * [Wiki](https://en.wikipedia.org/wiki/Bloom_filter)
 
+## Lecture <a name="lecture"></a>
+Class Background and Details: 
+* 1 credit pass/fail
+* No one should be taking this class for an easy A
+* Resources are provided to learn anything ranging from modern consensus mechanisms to zero knowledge cryptography
+* Optional project opportunities will be posted to encourage building real-world applications and interacting with blockchain tech
 
+My Background:
+* 4th year Math and CS double major
+* Read papers under guidance of Professor Evans for my 3rd year
+* Interned at Hyperledger to build blockchain dispute resolution schemes for permissioned networks
+* Interned at Blockmatics to make blockchain developer courses
+* Previous experience in finance/markets
 
+Supervisor: Professor David Evans [website](https://www.cs.virginia.edu/~evans/)[blog](http://www.jeffersonswheel.org)
 
+### Getting Up to Speed on Blockchain <a name="intro"></a>
 
-## Lecture Notes
-
-
---My background (powerpoint it)
-
-For the class, my main goals are to 
-(1) -->foster intellectual curiosity
-(2) -->provide tools/guidance to enable your success in this space
-(3) -->foster diverse discussions to make the class *symbiotic*
-We are peers and will learn together. Think of this whole class as a massive experiment and my goal is to make so that we can share the knowledge that we have with each other. (2 heads are better than 1 comic)...emphasize fact that everyone has an area to contribute
-
-This is going to be the least technical lecture. I'm teaching to a wide range of audiences. Some of you may be too advanced for this class
--->for you, I want to do these things
-----encourage side projects and help you with them
-----enable your personal development; building the skills that will be useful in the future and positioning yourself in this space
-
-for the intermediate crowd;
--->plug you into great sources of knowledge in the space
--->make you aware of opportunities to build and contribute
-
-for the new people;
--->introduce to you the space
--->foster curiosity and enable exploration
+Matt G Condon's IDEO CoLab speech on [Getting Up to Speed On Blockchain](https://www.youtube.com/watch?v=PvO3J4AKLWo)
 
 Historical perspective:
 --concept of a database
@@ -111,16 +105,24 @@ blockchain:
 --people called miners are in charge of doing the verification
 --just a database with very specific rules on how it can change
 
+### Student Onboarding <a name="onboarding"></a>
+
 How can you learn more about this and plug yourself into the space:
 -->Bitcoin came out in 2008, it's been 10 years
 -->following resources (create lists and put them on the course page)
 -->point to student onboarding page on the website
+
+### Incentive Feedback Loops <a name="incentives"></a>
 
 "Blockchain vs Cryptocurrency"
 --to stop someone from attacking the network, it has to cost money to submit transactions. So miner's dont accept transactions that don't pay enough money. This is the transaction fee for each transaction (it represents the value provided by the network and is priced in the native currency)
 --transaction fees fluctuate in real value so it is better to use some native currency. Show why it wouldn't make sense to do this with the USD. The value provided by the network will fluctuate and this influences miner rewards (which partly consist of transfer fees and partly consist of issuance)
 --you need to stop people from abusing the network; example is a sybil attack: because there is no cost to instantiating each identity, people can spam the network with identities. Mining and proof of work anchors a cost to voting essentially.
 
+"Incentive Loops"
+--borrow from **Brock Pierce's speech** and link
+
+### Public Key Crytography <a name="pke"></a>
 Recently developed useful cryptography:
 *hash function
 *merkle trees (Google origin and how they're used in Plasma for Sparse Merkle Trees)
@@ -135,11 +137,14 @@ you sample some reliable source of randomness like atmospheric radiation and use
 --also, no one will get the same public key because hash functions are collision-resistant
 --It is basically impossible for anyone to generate your private key and whenever you sign transactions, you sign your private key with your public key...this allows you to establish some sense of identity (term: self-sovereign identity...mention impacts)
 
+## Next Week <a name="next"></a>
 So how does proof of work work?
 *explain process
 *explain block size debate
 *use Smerkle tweet inbox quote on Bitcoin's principles on maintaining backward compatibility (define this term well)
 --ASIDE: recent monetary policy debate on ethereum and how there is a lot of 'politics'. Explain the politics and how everyone has conflicting incentives.
 
-**THIS IS A LOT ALREADY...STOP HERE AND TIME IT AFTER FINISHING THE POWERPOINT; CONSIDER USING ANY REMAINING TIME TO INTRODUCE KNOWLEDGE GRAPH AND OTHER IDEAS...ALSO WHAT NEEDS TO BE DONE BEFORE NEXT CLASS**
-
+**Reading**
+* [Cypherpunk's Manifesto](https://www.activism.net/cypherpunk/manifesto.html)
+* [Bitcoin's Academic Pedigree](https://queue.acm.org/detail.cfm?id=3136559)
+* [Bitcoin's Whitepaper](https://bitcoin.org/bitcoin.pdf)
