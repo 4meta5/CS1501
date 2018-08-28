@@ -15,6 +15,7 @@ Matt G Condon's IDEO CoLab speech on [Getting Up to Speed On Blockchain](https:/
 * [Bitcoin's Whitepaper](https://bitcoin.org/bitcoin.pdf)
 
 **Tweeted Terms of the Week**
+
 ---
 id: 1
 term: Harberger Tax
@@ -23,6 +24,7 @@ author: Amar Singh <ars9he@virginia.edu>
 created: 2018-8-28
 related authors: SimonDLR, Glen Weyl, Eric Posner 
 ---
+
 * [SimonDLR article](https://medium.com/@simondlr/what-is-harberger-tax-where-does-the-blockchain-fit-in-1329046922c6)
 * [Property is Only Another Name for Monopoly](https://academic.oup.com/jla/article/9/1/51/3572441)
 * Harberger tax introduces two concepts to property ownership: (1) Citizens value their own property and pay taxes on it accordingly (self-assessed tax) (2) At any point in time, anyone can buy the property for the set price (force a sale)
@@ -32,6 +34,7 @@ related authors: SimonDLR, Glen Weyl, Eric Posner
 *"Harberger taxation achieves 70-90% of the maximum possible allocative welfare gains and the investment losses erode only 10 to 20% of these gains"
 * This policy structure could be implemented alongside continuous auctions to enable novel distribution schemes built on the blockchain. From @simondlr "...reducing the transaction costs to coordinate allows us to form new organizations that create new wealth"
 * [Vitalik Blog Post On Radical Markets](https://vitalik.ca/general/2018/04/20/radical_markets.html)
+
 ---
 id: 2
 term: Bloom Filter
@@ -40,6 +43,7 @@ author: Amar Singh <ars9he@virginia.edu>
 created: 2018-8-28
 related authors: chris_seberino 
 ---
+
 * [ETC Article by Chris Seberino](https://ethereumclassic.github.io/blog/2017-02-10-bloom-filters/)
 * Bloom Filters exist on Ethereum to facilitate auditability without significantly increasing overhead.
 *Events must be easily searchable to enable applications to display events with relatively low overhead. Because blockchain storage space is expensive, bloom filters are used to quickly determine set membership with marginal storage requirements.
