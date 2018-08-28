@@ -22,7 +22,8 @@ term: Harberger Tax
 status: Active
 author: Amar Singh <ars9he@virginia.edu> 
 created: 2018-8-28
-related authors: SimonDLR, Glen Weyl, Eric Posner 
+authors: SimonDLR, Glen Weyl, Eric Posner 
+
 ---
 
 * [SimonDLR article](https://medium.com/@simondlr/what-is-harberger-tax-where-does-the-blockchain-fit-in-1329046922c6)
@@ -41,7 +42,8 @@ term: Bloom Filter
 status: Active
 author: Amar Singh <ars9he@virginia.edu> 
 created: 2018-8-28
-related authors: chris_seberino 
+authors: chris_seberino 
+
 ---
 
 * [ETC Article by Chris Seberino](https://ethereumclassic.github.io/blog/2017-02-10-bloom-filters/)
