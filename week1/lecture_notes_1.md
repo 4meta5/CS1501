@@ -24,7 +24,7 @@ term: Harberger Tax;
 status: Active;
 author: Amar Singh <ars9he@virginia.edu>; 
 created: 2018-8-28;
-authors: SimonDLR, Glen Weyl, Eric Posner 
+cited: SimonDLR, Glen Weyl, Eric Posner 
 
 ---
 
@@ -44,7 +44,7 @@ term: Bloom Filter;
 status: Active;
 author: Amar Singh <ars9he@virginia.edu>; 
 created: 2018-8-28;
-authors: chris_seberino 
+cited: chris_seberino 
 
 ---
 
