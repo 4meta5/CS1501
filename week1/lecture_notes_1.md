@@ -3,18 +3,18 @@
 1. [Reading List](#reading)
     1. [Tweet Storms](#tweets)
 2. [Lecture Notes](#lecture)
-    1. [Getting Up To Speed On Blockchain](#intro)
-    2. [Student Onboarding](#onboarding)
+    1. [Student Onboarding](#onboarding)
+    2. [Getting Up To Speed On Blockchain](#intro)
     3. [Incentive Feedback Loops](#incentives)
-    4. [Public Key Cryptography](#pke)
 3. [Next Class](#next)
+    1. [Basic Cryptography](#crypto)
+    2. [Proof of Work](#pow)
 
 ## Class Reading <a name="reading"></a>
 
 **Before This Class**
 * [Incentive Loops](https://medium.com/@Trustless_State/incentive-loops-how-crypto-actually-fixes-stuff-a7aa7aa3ae04)
-* [Basics of Hash Functions](https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b)
-* [Public Key Crytography](https://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo)
+
 
 ### Tweeted Terms of the Week <a name="tweets"></a>
 
@@ -71,9 +71,16 @@ My Background:
 * Read papers under guidance of Professor Evans for my 3rd year
 * Interned at Hyperledger to build blockchain dispute resolution schemes for permissioned networks
 * Interned at Blockmatics to make blockchain developer courses
-* Previous experience in finance/markets
+* Previous experience with finance/markets/monetary policy
 
-Supervisor: Professor David Evans [website](https://www.cs.virginia.edu/~evans/)[blog](http://www.jeffersonswheel.org)
+Supervisor: Professor David Evans [website](https://www.cs.virginia.edu/~evans/) and [blog](http://www.jeffersonswheel.org)
+
+### Student Onboarding <a name="onboarding"></a>
+
+How can you learn more about this and plug yourself into the space:
+-->Bitcoin came out in 2008, it's been 10 years
+-->following resources (create lists and put them on the course page)
+-->point to student onboarding page on the website
 
 ### Getting Up to Speed on Blockchain <a name="intro"></a>
 
@@ -83,12 +90,16 @@ Historical perspective:
 --concept of a database
 --want a place to store data and make sure that it stays there
 --keeping history can be useful for many reasons
+
+**zoom in on twitter and tell this like a story** spend a few slides
 --twitter is a database of tweets that twitter controls
 ----they allow you to change a subset of the database (your tweets) 
 ----they are the gatekeepers so they can shut down the network or change your history whenever they want (you are not in control of your data/information, they are)
 
+**mention Docker and containers and parallel computation**
 --then, we started thinking of the concept of distributed database to scale computation, storage, etc.
 --but these were still controlled/managed by the same cloud provider, etc. (Amazon, Google pics)
+**Related resource that even alludes to the limitations of parallelizations:**[Vitalik's recent blog post](https://vitalik.ca/general/2018/08/26/layer_1.html)
 
 --paradigm shift with the Bitcoin Whitepaper
 --end of 2008, bank bailout and financial crisis
@@ -105,24 +116,33 @@ blockchain:
 --people called miners are in charge of doing the verification
 --just a database with very specific rules on how it can change
 
-### Student Onboarding <a name="onboarding"></a>
+### Blockchain for Money
+* [Hayek Quote and Quiao Article](https://medium.com/@QwQiao/hayek-and-stablecoins-3c7f3291d728)
+* [Lightning as Unicast Transaction Network](https://medium.com/@melik_87377/lightning-network-enables-unicast-transactions-in-bitcoin-lightning-is-bitcoins-tcp-ip-stack-8ec1d42c14f5)
+* [Cantillon Effect Szabo Tweet](https://twitter.com/NickSzabo4/status/1031232173561368576)
+* [Mises Wire](https://mises.org/library/how-central-banking-increased-inequality)
+* [Cantillon Wiki](https://en.wikipedia.org/wiki/Richard_Cantillon)
 
-How can you learn more about this and plug yourself into the space:
--->Bitcoin came out in 2008, it's been 10 years
--->following resources (create lists and put them on the course page)
--->point to student onboarding page on the website
+**Next Week: Discussion of Monetary Policy on Ethereum Now** (could prepare game where students play roles and vote using their tokens on the outcome...debate to convince others to join your side)
 
 ### Incentive Feedback Loops <a name="incentives"></a>
-
-"Blockchain vs Cryptocurrency"
---to stop someone from attacking the network, it has to cost money to submit transactions. So miner's dont accept transactions that don't pay enough money. This is the transaction fee for each transaction (it represents the value provided by the network and is priced in the native currency)
---transaction fees fluctuate in real value so it is better to use some native currency. Show why it wouldn't make sense to do this with the USD. The value provided by the network will fluctuate and this influences miner rewards (which partly consist of transfer fees and partly consist of issuance)
---you need to stop people from abusing the network; example is a sybil attack: because there is no cost to instantiating each identity, people can spam the network with identities. Mining and proof of work anchors a cost to voting essentially.
+Different blockchains have different use cases. Bitcoin might be more traditional so it may value backwards compatibility longer to ensure no client becomes outdated or unusable. Ethereum is looking to be a platform and needs to scale transaction throughput. This explains the transition from proof of work to proof of stake. Shuffle quickly through a slide on why Ethereum isn't really proof of stake. It sacrifices decentralization and permissionlessness for greater throughput. Anyway, one thing all blockchains have in common is that they are designed to manage incentives. They delineate roles and incentivize participation in a coordinated protocol. Recent examples are Handshake, Melonport, Ox, BAT. We'll dive deeper later but cover this at a high level now.
 
 "Incentive Loops"
 --borrow from **Brock Pierce's speech** and link
 
-### Public Key Crytography <a name="pke"></a>
+"Blockchain vs Cryptocurrency"
+--explanation as to why "I believe in blockchain but not cryptocurrency is ridiculous"
+--to stop someone from attacking the network, it has to cost money to submit transactions. So miner's dont accept transactions that don't pay enough money. This is the transaction fee for each transaction (it represents the value provided by the network and is priced in the native currency)
+--transaction fees fluctuate in real value so it is better to use some native currency. Show why it wouldn't make sense to do this with the USD. The value provided by the network will fluctuate and this influences miner rewards (which partly consist of transfer fees and partly consist of issuance)
+--you need to stop people from abusing the network; example is a sybil attack: because there is no cost to instantiating each identity, people can spam the network with identities. Mining and proof of work anchors a cost to voting essentially.
+
+## Next Class <a name="next"><a/>
+Before next class, we'll provide some resources to become familiar with basic cryptography.
+
+Next class, we'll cover pow as well.
+
+### Basic Cryptography <a name="crypto"></a>
 Recently developed useful cryptography:
 *hash function
 *merkle trees (Google origin and how they're used in Plasma for Sparse Merkle Trees)
@@ -137,7 +157,12 @@ you sample some reliable source of randomness like atmospheric radiation and use
 --also, no one will get the same public key because hash functions are collision-resistant
 --It is basically impossible for anyone to generate your private key and whenever you sign transactions, you sign your private key with your public key...this allows you to establish some sense of identity (term: self-sovereign identity...mention impacts)
 
-## Next Week <a name="next"></a>
+**Reading**
+* [Basics of Hash Functions](https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b)
+* [Public Key Crytography](https://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo)
+
+
+### Proof of Work <a name="pow"></a>
 So how does proof of work work?
 *explain process
 *explain block size debate
