@@ -65,7 +65,7 @@ cited: Nick Szabo, Vitalik Buterin, Patrick McCorry
 
 ---
 
-![Smart Contract Laws](/assets/smartcontractlaw.ppg)
+![Smart Contract Laws](assets/smartcontractlaw.jpg)
 * Smart contracts were first discussed by @NickSzabo4  in 1996 ~"The basic idea of smart contracts is that many kinds of contractual clauses can be embedded in hardware/software to make the breach of contract prohibitively expensive for the breacher." [link](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart_contracts_2.html)
 * The canonical example used by Szabo is vending machines ~ "The machine accepts coins, and via a simple mechanism, which makes a beginner's level problem in design with finite automata, dispense change and product fairly."
 * Szabo expanded on smart contract security in a publication the next year: [link](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart_contracts_idea.html) In 2002, Szabo returned to this topic and wrote about a formal language for analyzing contracts. Many of these ideas are recycled in contemporary work [link](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/contractlanguage.html)
