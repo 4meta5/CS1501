@@ -54,3 +54,22 @@ cited: Consensys, Simondlr
 * Merkle Trees are very useful for securing and verifying data. For this reason, they are often used in blockchains in conjunction with Bloom Filters (for more info, check this stack exchange response [link](https://t.co/qOMNvakIb1)
 * Sparse Merkle Tree (SMT) is a variant of a Merkle Tree designed to minimize storage requirements for specific databases. Google first proposed this data structure when tracking [certificate revocation](https://t.co/hdCv6C4Dpu)
 * SimonDlr explained how the SMT is used in Plasma Cash to "prove the existence of a leaf with some data, thereby also proving non-inclusion of the rest of the state." This may be useful for NFT issuance/tracking off-chain [article](https://t.co/PzTH9JCAlO)
+
+---
+id: 4;
+term: Smart Contract;
+status: Active;
+author: Amar Singh <ars9he@virginia.edu>; 
+created: 2018-8-30;
+cited: Nick Szabo, Vitalik Buterin, Patrick McCorry
+
+---
+
+![Smart Contract Laws](/assets/smartcontractlaw.ppg)
+* Smart contracts were first discussed by @NickSzabo4  in 1996 ~"The basic idea of smart contracts is that many kinds of contractual clauses can be embedded in hardware/software to make the breach of contract prohibitively expensive for the breacher." [link](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart_contracts_2.html)
+* The canonical example used by Szabo is vending machines ~ "The machine accepts coins, and via a simple mechanism, which makes a beginner's level problem in design with finite automata, dispense change and product fairly."
+* Szabo expanded on smart contract security in a publication the next year: [link](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart_contracts_idea.html) In 2002, Szabo returned to this topic and wrote about a formal language for analyzing contracts. Many of these ideas are recycled in contemporary work [link](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/contractlanguage.html)
+* One common mechanism is the use of collateral in smart contracts to attach a cost to claims. This consists of requiring users to put some $$ in a vault to 'vote' on certain things. If the given users violate the voting rules, their $$ is slashed (burned, destroyed, etc)
+* Requiring collateral for voting is frequently used as an anti-sybil mechanism in proof of stake. @VitalikButerin has explored this idea in an article on slashing in early 2014 [slasher](https://blog.ethereum.org/2014/01/15/slasher-a-punitive-proof-of-stake-algorithm/)
+* Vitalik enumerated Minimal Slashing Conditions in a blog post in March, 2017 [minimal slashing conditions](https://medium.com/@VitalikButerin/minimal-slashing-conditions-20f0b500fc6c)
+* [Tweet storm on history of Ethereum PoS Development from Vitalik](https://twitter.com/VitalikButerin/status/1029900695925706753)

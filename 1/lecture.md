@@ -39,17 +39,14 @@ Nowadays, it is common to use virtual machines, container technology, clustering
 ### Bitcoin <a name="bitcoin"></a>
 In the aftermath of the financial crisis, the Bitcoin whitepaper was released onto a mailing list in late 2008. The paper was extremely innovative in how it defined roles and managed incentives to enable a permissionless ledger for transactions. The anonymity of Bitcoin's author added to the hype and continues to entertain conspiracy theorists. The paper's main innovation was in designing a distributed database that wasn't controlled by any single person/entity. At a high level,it defined a system to fairly distribute power over the database. Because proof of work relies on relatively consistent mining overhead costs, it ensures that the system couldn't be gamed by any one entity. In this manner, Bitcoin's primary allure is and continues to be its ability to achieve decentralization in a permissionless setting. Decentralization measures whether any single entity or consortium of members can manipulate control using their share of power. Blockchain networks like Ethereum and Bitcoin often claim to enable *trustless* transaction validation, but this claim relies on each blockchain being decentralized. In both cases, it is up for debate how decentralized the respective blockchain's operations are *in reality*. 
 
-****
+**High-Level Overview**
+The database is owned by the superset of everyone on the network. You have some *state* and you want to make changes to it. 
 
----cypherpunk manifesto
-----described a model that could enable the creation of a distributed database that wasn't controlled by 
-any single person/entity...it creates a method to create some percent share over the database (this is called trustless, you don't need to trust the other people that are maintaining the database...the reason is because everyone can basically act in their self-interest and everything will be secure)
-----the database is owned by the superset of everyone on the network; 
-blockchain:
---you have some state and you want to make changes to it
---so the changes must reference the previous state and this creates an immutable history of changes
---define immutable...put some data out there and have it stay there and not change
---in the database, we tracked how much money someone has and that's bitcoin
+For the teaching purposes, consider the state as the score for a basketball game. Every time the score changes, we want to store evidence of the shot (maybe a hash of the video) in an append-only ledger. If we use a distributed ledger, incorporate public key cryptography to manage accounts, and peg value to a native currency, we have Bitcoin. 
+
+**Immutability:** Blockchains use an append-only data structure to ensure immutability. For this reasons, blockchains must be tamper-proof to uphold this main value proposition. A centralized blockchain is no better than going through a centralized company/service
+
+
 --So at a high level, this works in a way where I decide I want to send some amount to someone else so I sign a message/transaction and send that to the network and everyone network validates the transaction by referencing the previous state and verifies that I have those funds and the transaction is legitimate before adding it to the block, which enables and symbolizes transfer of value
 --people called miners are in charge of doing the verification
 --just a database with very specific rules on how it can change

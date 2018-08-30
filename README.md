@@ -6,5 +6,9 @@ UVA Introduction to Blockchain
 
  ## Repo Organization
 
+
 ## Managing Contributions
 Pando or Sourcecred
+
+Resources:
+* [Adam Pritchard Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
