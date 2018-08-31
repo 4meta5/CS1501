@@ -3,7 +3,6 @@
 1. [Getting Up To Speed on Blockchain](#intro)
     1. [Distributed Database](#distributed)
     2. [Bitcoin](#bitcoin)
-    3. [Blockchain for Money](#money)
     4. [Incentive Feedback Loops](#incentives)
 2. [Logistics](#logistics)
     1. [Student Onboarding](#onboarding)
@@ -14,16 +13,27 @@
 
 Matt G Condon's IDEO CoLab speech on [Getting Up to Speed On Blockchain](https://www.youtube.com/watch?v=PvO3J4AKLWo)
 
-Consider the concept of a database. A database is used to store data. Depending on the speific use case, certain properties may be desired. 
+A **database** is used to store data. Desirable properties depend on the nature of the information being stored. A few desirable properties could include:
+* *Privacy*
+* Auditability
+* Permissioned
+* Permissionless
+* Cheap Storage/Overhead
+* Cache
+* Liveness
+* Availability
+* Consistency
+* Partitions
+* *Finality*
 
-If privacy is important, then the data should be *encrypted*. By the end of next class, you'll understand how encryption works at a high level. In many cases, it is important that a history of all changes to the database are maintained and tamper-proof. Indeed, having an auditable history can be useful for many reasons, but that's not how contemporary applications work.
+This list is by no means exhaustive. For a recent take on what *finality* means in the context of blockchains, check out this article from [Mechanism Labs](https://medium.com/mechanism-labs/finality-in-blockchain-consensus-d1f83c120a9a)
 
 **Let's take a look at Twitter.** Twitter can be seen as a database of tweets that twitter controls. Twitter manages permissions on the subset of the database that you can access and interact with. Even so, Twitter is the gatekeeper so they can shut down the network or change your history. In this world, there is no concept of your data. This is Twitter, Facebook, Google, Amazon's data and they don't keep it to themselves.
 
 **Optional Activity:**What properties does Twitter have that could enable us to create an auditable cryptocurrency. *Push general consensus towards the public qualities of tweets*. Even so, this implementation would still rely on using Twitter.
 
 **One Key Takeaway: public auditability is an important blockchain property!**
-This is the reason for the use of Bloom Filters along with Merkle Trees in modern blockchains. We have covered both of these terms in the ./tweets.md file.
+This is the reason for the use of Bloom Filters along with Merkle Trees in modern blockchains. We have covered both of these terms in the ./tweets.md file (and tweeted them from the Twitter account @smerklenetwork)
 
 ### Distributed Database <a name="distributed"></a>
 To scale computation, techniques were developed to coordinate the distribution of computational load across multiple hardware devices. 
@@ -36,42 +46,22 @@ Nowadays, it is common to use virtual machines, container technology, clustering
 
 **Interesting Read (recent):** [Vitalik Blog Post on Layer 1 vs 2 outlook and limitations of sharding in practice](https://vitalik.ca/general/2018/08/26/layer_1.html)
 
+**Cantillon Effect** experienced after quantitative easing post-crisis is cited to prove central bank incompetence and motivate decentralized governance. More information at [this link](https://mises.org/library/how-central-banking-increased-inequality).
+
 ### Bitcoin <a name="bitcoin"></a>
 In the aftermath of the financial crisis, the Bitcoin whitepaper was released onto a mailing list in late 2008. The paper was extremely innovative in how it defined roles and managed incentives to enable a permissionless ledger for transactions. The anonymity of Bitcoin's author added to the hype and continues to entertain conspiracy theorists. The paper's main innovation was in designing a distributed database that wasn't controlled by any single person/entity. At a high level,it defined a system to fairly distribute power over the database. Because proof of work relies on relatively consistent mining overhead costs, it ensures that the system couldn't be gamed by any one entity. In this manner, Bitcoin's primary allure is and continues to be its ability to achieve decentralization in a permissionless setting. Decentralization measures whether any single entity or consortium of members can manipulate control using their share of power. Blockchain networks like Ethereum and Bitcoin often claim to enable *trustless* transaction validation, but this claim relies on each blockchain being decentralized. In both cases, it is up for debate how decentralized the respective blockchain's operations are *in reality*. 
 
-**High-Level Overview**
-The database is owned by the superset of everyone on the network. You have some *state* and you want to make changes to it. 
+Interesting view on how recent development may mirror past trends in internet protocol development: [Lightning as Unicast Transaction Network](https://medium.com/@melik_87377/lightning-network-enables-unicast-transactions-in-bitcoin-lightning-is-bitcoins-tcp-ip-stack-8ec1d42c14f5)
 
-For the teaching purposes, consider the state as the score for a basketball game. Every time the score changes, we want to store evidence of the shot (maybe a hash of the video) in an append-only ledger. If we use a distributed ledger, incorporate public key cryptography to manage accounts, and peg value to a native currency, we have Bitcoin. 
-
-**Immutability:** Blockchains use an append-only data structure to ensure immutability. For this reasons, blockchains must be tamper-proof to uphold this main value proposition. A centralized blockchain is no better than going through a centralized company/service
-
-
---So at a high level, this works in a way where I decide I want to send some amount to someone else so I sign a message/transaction and send that to the network and everyone network validates the transaction by referencing the previous state and verifies that I have those funds and the transaction is legitimate before adding it to the block, which enables and symbolizes transfer of value
---people called miners are in charge of doing the verification
---just a database with very specific rules on how it can change
-
-### Blockchain for Money <a name="money"></a>
-* [Hayek Quote and Quiao Article](https://medium.com/@QwQiao/hayek-and-stablecoins-3c7f3291d728)
-* [Lightning as Unicast Transaction Network](https://medium.com/@melik_87377/lightning-network-enables-unicast-transactions-in-bitcoin-lightning-is-bitcoins-tcp-ip-stack-8ec1d42c14f5)
-* [Cantillon Effect Szabo Tweet](https://twitter.com/NickSzabo4/status/1031232173561368576)
-* [Mises Wire](https://mises.org/library/how-central-banking-increased-inequality)
-* [Cantillon Wiki](https://en.wikipedia.org/wiki/Richard_Cantillon)
+**How does this work? (High Level Answer)**
+The database is owned by the superset of everyone on the network. You have some *state* and you want to make changes to it. Assume Alice wants to send some Bitcoin to Bob. Alice signs a message (transaction) transferring ownership of funds to Bob. Alice sends the message to the network and, if it is valid, all full nodes on the network validate the transaction and add it to the blockchain. This explanation doesn't cover proof of work (which will be covered in detail next class).
 
 ### Incentive Feedback Loops <a name="incentives"></a>
 * [Incentive Loops](https://medium.com/@Trustless_State/incentive-loops-how-crypto-actually-fixes-stuff-a7aa7aa3ae04)
 
+Different blockchains have different use cases. Bitcoin might be more traditional so it may value backwards compatibility to ensure no client becomes outdated or unusable. Ethereum is looking to be an application platform and, therefore, needs to scale transaction throughput. This explains the transition from proof of work to proof of stake. It sacrifices decentralization and permissionlessness for greater throughput. Anyway, one thing all blockchains have in common is that they are designed to manage incentives. They delineate roles and incentivize participation in a coordinated protocol. Recent examples are Handshake, Melonport, Ox, BAT. We'll dive deeper later but cover this at a high level now.
 
-Different blockchains have different use cases. Bitcoin might be more traditional so it may value backwards compatibility longer to ensure no client becomes outdated or unusable. Ethereum is looking to be a platform and needs to scale transaction throughput. This explains the transition from proof of work to proof of stake. Shuffle quickly through a slide on why Ethereum isn't really proof of stake. It sacrifices decentralization and permissionlessness for greater throughput. Anyway, one thing all blockchains have in common is that they are designed to manage incentives. They delineate roles and incentivize participation in a coordinated protocol. Recent examples are Handshake, Melonport, Ox, BAT. We'll dive deeper later but cover this at a high level now.
-
-"Incentive Loops"
---borrow from **Brock Pierce's speech** and link
-
-"Blockchain vs Cryptocurrency"
---explanation as to why "I believe in blockchain but not cryptocurrency is ridiculous"
---to stop someone from attacking the network, it has to cost money to submit transactions. So miner's dont accept transactions that don't pay enough money. This is the transaction fee for each transaction (it represents the value provided by the network and is priced in the native currency)
---transaction fees fluctuate in real value so it is better to use some native currency. Show why it wouldn't make sense to do this with the USD. The value provided by the network will fluctuate and this influences miner rewards (which partly consist of transfer fees and partly consist of issuance)
---you need to stop people from abusing the network; example is a sybil attack: because there is no cost to instantiating each identity, people can spam the network with identities. Mining and proof of work anchors a cost to voting essentially.
+[Brock Pierce Speech](https://www.youtube.com/watch?v=0mpF_bIVxak)
 
 ## Logistics <a name="logistics"></a>
 Class Background and Details: 
@@ -98,38 +88,55 @@ How can you learn more about this and plug yourself into the space:
 -->following resources (create lists and put them on the course page)
 -->point to student onboarding page on the website
 
-Before next class, we'll provide some resources to become familiar with basic cryptography.
 
-Next class, we'll cover pow as well.
+Key Opportunities:
+* Knowledge Graph
+    * Blockchain Protocol Layer Graph
+    * Middleware Graph
+    * Dapp Graph
+    * Actor Graph
+    * [example of organization of knowledge](https://medium.com/@josh_nussbaum/blockchain-project-ecosystem-8940ababaf27)
+* A6 Staking
+* DCentral Bank
+
+Follow on Twitter: @smerklenetwork
+
+Join Chat Groups:
+* Telegram Groups
+* Althea Riot Chat
+* Gitter, Slack, IRC, etc.
+
+Languages:
+* Javascript/ES6
+* Python
+* Rust
+* Golang
+
+Before next class, we'll provide some resources to become familiar with basic cryptography. Next class, we'll cover pow as well.
 
 ### Basic Cryptography <a name="crypto"></a>
 Recently developed useful cryptography:
-*hash function
-*merkle trees (Google origin and how they're used in Plasma for Sparse Merkle Trees)
-*public-key cryptography
-*digital signatures
-
---consider watching more videos and putting together some reading list
---high level overview of public key cryptography
-you sample some reliable source of randomness like atmospheric radiation and use this to generate a private key. 
---you can generate a public key using a trapdoor function (one-way function, like a hash function)...explain how this works
---it's impossible to guess the private key even with the public key because you can't reverse the hash function
---also, no one will get the same public key because hash functions are collision-resistant
---It is basically impossible for anyone to generate your private key and whenever you sign transactions, you sign your private key with your public key...this allows you to establish some sense of identity (term: self-sovereign identity...mention impacts)
+* hash function
+* merkle trees (Google origin and how they're used in Plasma for Sparse Merkle Trees)
+* public-key cryptography
+* digital signatures
 
 **Reading**
 * [Basics of Hash Functions](https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b)
 * [Public Key Crytography](https://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo)
 
-
 ### Proof of Work <a name="pow"></a>
-So how does proof of work work?
-*explain process
-*explain block size debate
-*use Smerkle tweet inbox quote on Bitcoin's principles on maintaining backward compatibility (define this term well)
---ASIDE: recent monetary policy debate on ethereum and how there is a lot of 'politics'. Explain the politics and how everyone has conflicting incentives.
+* Math and Whitepaper Walk Through
+* block size debate
+* Maintaining backward compatibility vs. Upgradability
+* Monetary Policy
+* Politics
 
 **Reading**
 * [Cypherpunk's Manifesto](https://www.activism.net/cypherpunk/manifesto.html)
 * [Bitcoin's Academic Pedigree](https://queue.acm.org/detail.cfm?id=3136559)
 * [Bitcoin's Whitepaper](https://bitcoin.org/bitcoin.pdf)
+
+**Extra**
+* [Video of Joseph Poon discussing Plasma](https://www.youtube.com/watch?reload=9&v=oOQmnhQrq_U)
+This video will provide a smooth introduction to layer 2 scaling solutions.
