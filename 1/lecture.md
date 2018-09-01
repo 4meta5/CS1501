@@ -59,7 +59,7 @@ The database is owned by the superset of everyone on the network. You have some 
 ### Incentive Feedback Loops <a name="incentives"></a>
 * [Incentive Loops](https://medium.com/@Trustless_State/incentive-loops-how-crypto-actually-fixes-stuff-a7aa7aa3ae04)
 
-Different blockchains have different use cases. Bitcoin might be more traditional so it may value backwards compatibility to ensure no client becomes outdated or unusable. Ethereum is looking to be an application platform and, therefore, needs to scale transaction throughput. This explains the transition from proof of work to proof of stake. It sacrifices decentralization and permissionlessness for greater throughput. Anyway, one thing all blockchains have in common is that they are designed to manage incentives. They delineate roles and incentivize participation in a coordinated protocol. Recent examples are Handshake, Melonport, Ox, BAT. We'll dive deeper later but cover this at a high level now.
+Different blockchains have different use cases. Bitcoin might be more traditional so it may value backwards compatibility to ensure no client becomes outdated or unusable. Ethereum is looking to be an application platform and, therefore, needs to scale transaction throughput. This explains the transition from proof of work to proof of stake. It sacrifices decentralization and permissionlessness for greater throughput.In general, blockchains delineate roles and incentivize participation in a coordinated protocol. Recent examples are Handshake, Melonport, Ox, BAT. We'll dive deeper later but cover this at a high level now.
 
 [Brock Pierce Speech](https://www.youtube.com/watch?v=0mpF_bIVxak)
 
@@ -115,7 +115,7 @@ Languages:
 Before next class, we'll provide some resources to become familiar with basic cryptography. Next class, we'll cover pow as well.
 
 ### Basic Cryptography <a name="crypto"></a>
-Recently developed useful cryptography:
+Cryptography:
 * hash function
 * merkle trees (Google origin and how they're used in Plasma for Sparse Merkle Trees)
 * public-key cryptography
