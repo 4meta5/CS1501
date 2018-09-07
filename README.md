@@ -87,7 +87,7 @@ Python:
 * PyETH
 * PiperMerriam and Vitalik githubs -->
 
-## Projects <a name="projects"></a>
+## Projects <a name="Projects"></a>
 <!-- Knowledge Graph is under construction. 
 
 ScaleNetwork Information and Roles
