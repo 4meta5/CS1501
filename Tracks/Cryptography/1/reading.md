@@ -8,7 +8,7 @@ For everyone:
 5. [Bitcoin White Paper](https://bitcoin.org/bitcoin.pdf)
 
 Specific to Cryptography:
-1. [Chapter 1 of Bitcoin and Cryptocurrency Technologies Textbook](http://bitcoinbook.cs.princeton.edu/)
+1. [Blockchain Papers Repo by Decrypto](https://github.com/decrypto-org/blockchain-papers)
 2. [Stanford CS 251: Bitcoin and Cryptocurrencies Readings](https://crypto.stanford.edu/cs251/syllabus.html) -- Fall 2018, Dan Boneh
 3. [Applied Cryptography Online Textbook](http://toc.cryptobook.us/) -- 2017, Boneh and Shoup
 4. [Harvard: CS217 Cryptography Notes](https://intensecrypto.org/public/) -- Spring 2018, Boaz Barak

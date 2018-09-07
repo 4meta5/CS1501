@@ -7,12 +7,8 @@ For everyone:
 4. [Bitcoin's Academic Pedigree](https://queue.acm.org/detail.cfm?id=3136559)
 5. [Bitcoin White Paper](https://bitcoin.org/bitcoin.pdf)
 
-Specific to Economics/Governance:
-1. [Making Sense of Cryptoeconomics](https://medium.com/l4-media/making-sense-of-cryptoeconomics-c6455776669) -- August 28, 2017; Josh Stark
-2. [Token Bonding Curves Explained](https://medium.com/@justingoro/token-bonding-curves-explained-7a9332198e0e) -- April 30, 2018; Justin Goro
-3. 
-
-
+Specific to Application Development:
+1. [An economic incentive for running Ethereum full nodes](https://medium.com/vipnode/an-economic-incentive-for-running-ethereum-full-nodes-ecc0c9ebe22) -- May 8, 2018; Andrey Petrov
 2.  [A Primer on Ethereum Blockchain Light Clients](https://medium.com/zkcapital/a-primer-on-ethereum-blockchain-light-clients-f3cadde49137) -- May 19, 2018; Raul Jordan
 3. [Introduction to Go Programming](http://shop.oreilly.com/product/0636920035305.do) -- October 2014, John Graham-Cumming
 4. [Ethereum Development with Go](https://goethereumbook.org) -- "living" version
