@@ -17,7 +17,7 @@ This track is focused on building blockchain applications and interacting with t
 
 ## Paths
 
-Paths are designed to organize knowledge according to specific narratives or macro trends. Often times, it can be helpful to trace the origin of modern ideas.
+Paths are designed to organize knowledge according to specific narratives or macro trends. Often times, it can be helpful to trace the origin of modern ideas. For this track, paths are usually organized by programming language.
 
 ## Quiz
 

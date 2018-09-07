@@ -8,12 +8,8 @@ For everyone:
 5. [Bitcoin White Paper](https://bitcoin.org/bitcoin.pdf)
 
 Specific to Economics/Governance:
-1. [Making Sense of Cryptoeconomics](https://medium.com/l4-media/making-sense-of-cryptoeconomics-c6455776669) -- August 28, 2017; Josh Stark
-2. [Token Bonding Curves Explained](https://medium.com/@justingoro/token-bonding-curves-explained-7a9332198e0e) -- April 30, 2018; Justin Goro
-3. 
-
-
-2.  [A Primer on Ethereum Blockchain Light Clients](https://medium.com/zkcapital/a-primer-on-ethereum-blockchain-light-clients-f3cadde49137) -- May 19, 2018; Raul Jordan
-3. [Introduction to Go Programming](http://shop.oreilly.com/product/0636920035305.do) -- October 2014, John Graham-Cumming
-4. [Ethereum Development with Go](https://goethereumbook.org) -- "living" version
-5. [The Rust Book](https://doc.rust-lang.org/book/) -- "living" version
+1. [On Inflation, Transaction Fees, and Cryptocurrency Monetary Policy](https://blog.ethereum.org/2016/07/27/inflation-transaction-fees-cryptocurrency-monetary-policy/) -- July 27, 2016; Vitalik Buterin
+2. [Quadratic Voting](http://ericposner.com/quadratic-voting/) -- December 2014; Eric Posner Blog Post
+3. [Making Sense of Cryptoeconomics](https://medium.com/l4-media/making-sense-of-cryptoeconomics-c6455776669) -- August 28, 2017; Josh Stark
+4. [Token Bonding Curves Explained](https://medium.com/@justingoro/token-bonding-curves-explained-7a9332198e0e) -- April 30, 2018; Justin Goro
+5. [Radical Markets](http://radicalmarkets.com) -- Eric Posner & E. GLen Weyl
