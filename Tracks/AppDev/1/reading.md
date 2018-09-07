@@ -10,6 +10,6 @@ For everyone:
 Specific to Application Development:
 1. [An economic incentive for running Ethereum full nodes](https://medium.com/vipnode/an-economic-incentive-for-running-ethereum-full-nodes-ecc0c9ebe22) -- May 8, 2018; Andrey Petrov
 2.  [A Primer on Ethereum Blockchain Light Clients](https://medium.com/zkcapital/a-primer-on-ethereum-blockchain-light-clients-f3cadde49137) -- May 19, 2018; Raul Jordan
-3. [Introduction to Go Programming](http://shop.oreilly.com/product/0636920035305.do) -- October 2014, John Graham-Cumming
-4. [Ethereum Development with Go](https://goethereumbook.org) -- "living" version
-5. [The Rust Book](https://doc.rust-lang.org/book/) -- "living" version
+3. [CryptoZombies](https://cryptozombies.io) -- Solidity Tutorial Maintained by Loom Network
+4. [Why Rust?](https://paritytech.io/why-rust/) -- July 3, 2018; Dmitriy Kashitsyn (Parity Technologies)
+5. [Code your own blockchain in less than 200 lines of Go!](https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc) -- January 2018, Coral Health

@@ -30,11 +30,11 @@ There are three main tracks for the UVA CS1501 Introduction to Blockchain:
 2. [Economics/Governance](#Cryptoeconomics)
 3. [Application Development](#BUIDL)
 
-Students may participate in 1, 2, or all 3 tracks. Each track will provide participants with reading resources. In class, we will cover a mix of all three tracks, but likely focus on Cryptoeonomics. In the future, we may offer other activities/opportunities for students in each track.
+Students may participate in 1, 2, or all 3 tracks. Each track will provide participants with reading resources. In class, we will cover a mix of all three tracks, but likely focus on [Economics/Governance](#Cryptoeconomics). In the future, we may offer other activities/opportunities for students in each track.
 
-We are also very interested in adding a *subtrack* under [Application Development](#BUIDL) focused on hardware. Get in contact with us via *smerkle@protonmail.ch* if you are interested in joining.
+<!-- We are also very interested in adding a *subtrack* under [Application Development](#BUIDL) focused on hardware. Get in contact with us via *smerkle@protonmail.ch* if you are interested in joining. -->
 
-One of our core goals is to provide as many mappings between tracks as possible. It is extremely important for students to identify the connections between the material in the tracks. In the future, we will encourage [Projects](#projects) that incorporate work from multiple tracks.
+<!-- One of our core goals is to provide as many mappings between tracks as possible. It is extremely important for students to identify the connections between the material in the tracks. In the future, we will encourage [Projects](#projects) that incorporate work from multiple tracks. -->
 
 ### Cryptography <a name="Cryptography"></a>
 This track focuses on the cryptography related to blockchain technology. The material will focus on academic papers but may also cite informal resources on discussion boards, social media feeds, and blog posts.
@@ -42,22 +42,22 @@ This track focuses on the cryptography related to blockchain technology. The mat
 The [Cryptography](#Cryptography) track will work closely with the UVA Blockchain Research Lab.
 
 Resources Week 1 (9/7-9/14):
-* [Reading]()
-* [Paths]()
+* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/1/reading.md)
+* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/1/path.md)
 
 ### Economics/Governance <a name="Cryptoeconomics"></a>
 This track focuses on economics, governance, and incentive management. **Incentive loops** are the *magic sauce* of blockchain protocols and communities. By studying the construction of permissionless incentive loops, we can help students grasp the more subtle features that enable (to some extent) *decentralization* and *trustless* dispute resolution. Moreover, by understanding the incentive dynamics behind blockchain actors, we can help students realize the limitations of modern blockchain protocols.
 
 Resources Week 1 (9/7-9/14):
-* [Reading]()
-* [Paths]()
+* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Economics/1/reading.md)
+* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Economics/1/path.md)
 
 ### Application Development <a name="BUIDL"></a>
 This tracks focuses on helping students build software that interacts with the blockchain. This track will provide resources oriented towards coding tutorials and practical examples. It is our hope that the work in this track closely corresponds to the [Projects](#Projects). We organize resources in this track according to programming language. Our favorite programming languages are Rust, Golang, Solidity, Python, Javascript/ES6, and WebAssembly (but we may only focus on a few).
 
 Resources Week 1 (9/7-9/14):
-* [Reading]()
-* [Paths]()
+* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/1/reading.md)
+* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/1/path.md)
 
 <!-- Week 1:
 
@@ -99,7 +99,7 @@ Other Ideas:
 (4) Building a District0x clone
 (5) Trading systems that use KnowledgeGraph (happy to help with this)
 (6)  -->
-
+This part of the class will encourage students to form teams and build projects. It is [under construction](https://github.com/AmarRSingh/CS1501/blob/master/Projects/proposal-standard.md).
 
 ## Managing Contributions <a name="contribs"></a>
 [Pando](https://github.com/ryhope/pando) and/or [Sourcecred](https://github.com/sourcecred/sourcecred)
