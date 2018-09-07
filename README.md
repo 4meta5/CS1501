@@ -5,8 +5,8 @@ UVA Introduction to Blockchain
 **Tracks**
 This class provides students with a high-level introduction to blockchain technology. Students taking the class come from diverse backgrounds including Math, Physics, Computer Science, Economics, Finance, Public Policy, Philosophy, and Law. With this in mind, our core objective is to provide a holistic introduction to blockchain with an emphasis on the underlying technology. To achieve this objective, we are splitting the class into 3 [Tracks](#Tracks):
 1. [Cryptography](#Cryptography)
-2. [Cryptoeconomics](#Cryptoeconomics)
-3. [BUIDL](#BUIDL)
+2. [Economics/Governance](#Cryptoeconomics)
+3. [Application Development](#BUIDL)
 
 A description of each of the tracks is provided in later sections (linked above). In addition, more information is included in the Track directory.
 
@@ -20,11 +20,11 @@ Tacit organization:
 --create mappings between projects and lectures and tracks
 -->
 
-## Tracks
+## Tracks <a name="Tracks"></a>
 There are three main tracks for the UVA CS1501 Introduction to Blockchain:
 1. [Cryptography](#Cryptography)
-2. [Cryptoeconomics](#Cryptoeconomics)
-3. [BUIDL](#BUIDL)
+2. [Economics/Governance](#Cryptoeconomics)
+3. [Application Development](#BUIDL)
 
 Students may participate in 1, 2, or all 3 tracks. Each track will provide participants with reading resources. In class, we will cover a mix of all three tracks, but likely focus on Cryptoeonomics. In the future, we may offer other activities/opportunities for students in each track.
 
@@ -32,7 +32,7 @@ We are also very interested in adding a *subtrack* under [BUIDL](#BUIDL) focused
 
 One of our core goals is to provide as many mappings between tracks as possible. It is extremely important for students to identify the connections between the material in the tracks. In the future, we will encourage [Projects](#projects) that incorporate work from multiple tracks.
 
-### Cryptography
+### Cryptography <a name="Cryptography"></a>
 This track focuses on the cryptography related to blockchain technology. The material will focus on academic papers but may also cite informal resources on discussion boards, social media feeds, and blog posts.
 
 The [Cryptography](#Cryptography) track will work closely with the UVA Blockchain Research Lab.
@@ -48,7 +48,7 @@ Week 1:
 
 **Subsequent material for each track will be posted under the tracks directory.**
 
-### Cryptoeconomics
+### Economics/Governance <a name="Cryptoeconomics"></a>
 This track focuses on economics, governance, and incentive management. **Incentive loops** are the *magic sauce* of blockchain protocols and communities. By studying the construction of permissionless incentive loops, we can help students grasp the more subtle features that enable (to some extent) *decentralization* and *trustless* dispute resolution. Moreover, by understanding the incentive dynamics behind blockchain actors, we can help students realize the limitations of modern blockchain protocols.
 
 Week 1:
@@ -61,7 +61,7 @@ Extra (new paper came out by Vitalik on Monday):
 
 **Subsequent material for each track will be posted under the tracks directory.**
 
-### BUIDL
+### Application Development <a name="BUIDL"></a>
 This tracks focuses on helping students build software that interacts with the blockchain. This track will provide resources oriented towards coding tutorials and practical examples. It is our hope that the work in this track closely corresponds to the [Projects](#Projects). We organize resources in this track according to programming language. Our favorite programming languages are Rust, Golang, Solidity, Python, Javascript/ES6, and WebAssembly (but we may only focus on a few).
 
 Week 1:
@@ -92,7 +92,7 @@ Python:
 * PyETH
 * PiperMerriam and Vitalik githubs
 
-## Projects
+## Projects <a name="projects"></a>
 Knowledge Graph is under construction. 
 
 ScaleNetwork Information and Roles
