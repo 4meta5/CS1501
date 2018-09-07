@@ -1,6 +1,6 @@
- # Cryptography Track
+ # Economics Track
 
- This track focuses on cryptography related to blockchain technology. The first few weeks focus on establishing fundamental concepts before exposing students to more modern papers/protocols. 
+ This track focuses on economics/governance related to blockchain technology. Many of the ideas in this section are very new and have not been thoroughly tested/reviewed.
 
  All resources are stored in the numbered directories in the current directory. Typical resources that may be placed in the numbered directories include:
  1. [Reading Resources](#reading)
