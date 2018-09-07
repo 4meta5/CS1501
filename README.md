@@ -3,7 +3,7 @@
 
 UVA Introduction to Blockchain [Website](https://uvablockchain.gitbook.io)
 
-| [Introduction](#introduction) | [Tracks](#Tracks) | [Cryptography](#Cryptography | [Economics](#Cryptoeconomics) | [Application Development](#BUIDL) | [Projects](#Projects) | [Managing Contributions](#contribs)
+| [Introduction](#introduction) | [Tracks](#Tracks) | [Cryptography](#Cryptography) | [Economics](#Cryptoeconomics) | [Application Development](#BUIDL) | [Projects](#Projects) | [Managing Contributions](#contribs)
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 
 
