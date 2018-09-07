@@ -28,7 +28,7 @@ There are three main tracks for the UVA CS1501 Introduction to Blockchain:
 
 Students may participate in 1, 2, or all 3 tracks. Each track will provide participants with reading resources. In class, we will cover a mix of all three tracks, but likely focus on Cryptoeonomics. In the future, we may offer other activities/opportunities for students in each track.
 
-We are also very interested in adding a *subtrack* under [BUIDL](#BUIDL) focused on hardware. Get in contact with us via *smerkle@protonmail.ch* if you are interested in joining.
+We are also very interested in adding a *subtrack* under [Application Development](#BUIDL) focused on hardware. Get in contact with us via *smerkle@protonmail.ch* if you are interested in joining.
 
 One of our core goals is to provide as many mappings between tracks as possible. It is extremely important for students to identify the connections between the material in the tracks. In the future, we will encourage [Projects](#projects) that incorporate work from multiple tracks.
 
