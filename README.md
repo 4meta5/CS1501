@@ -1,5 +1,5 @@
 # CS1501: Introduction to Blockchain at UVA</p>
-### Found a great resource? Add it by submitting a Pull Request!
+### Found a great resource? Add it by submitting a [Pull Request](https://yangsu.github.io/pull-request-tutorial/)!
 
 UVA Introduction to Blockchain [Website](https://uvablockchain.gitbook.io)
 
