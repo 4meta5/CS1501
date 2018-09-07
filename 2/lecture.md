@@ -10,23 +10,18 @@ We'll focus on incentives at the beginning of class. Then, we'll eventually tran
 5. Next Class (guest speaker: Josh Cincinatti)
 
 **Assigned Readings:**
-- [Blockchain Underpinnings: Hashing](https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b)
-    * Desirable properties of hash functions:
-        * **pre-image resistant:** it is mathematically and computationally improbable to determine the input given the output (also known as a one-way function).
-        * Collision-resistant: 
-    Hash functions are pre-image resistant (it is mathematically and computationally improbable to determine the input given the output). Hash functions are often describes as one-way functions, but they are also collision-resistant (no two inputs map to the same output). It is also important to note that hash functions provide fixed-length outputs. 
-    * 
-- [Public Key Cryptography Stack Exchange Explanation]
-- [Chapter 1 of Bitcoin and Cryptocurrency Technologies Textbook]
-- [Bitcoin's Academic Pedigree]
-- [Bitcoin White Paper]
+1. [Blockchain Underpinnings: Hashing](https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b) -- January 2018, Consensys
+2. [Public Key Cryptography Stack Exchange Explanation](https://security.stackexchange.com/questions/25741/how-can-i-explain-the-concept-of-public-and-private-keys-without-technical-jargo) -- 2012, StackExchange
+3. [Chapter 1 of Bitcoin and Cryptocurrency Technologies Textbook](http://bitcoinbook.cs.princeton.edu/)
+4. [Bitcoin's Academic Pedigree](https://queue.acm.org/detail.cfm?id=3136559)
+5. [Bitcoin White Paper](https://bitcoin.org/bitcoin.pdf)
+
+[Good Blockchain Demo Website](https://anders.com/blockchain/)
+
 
 ## Managing Incentives with Blockchain
-* **recommend the book Radical Markets; if possible, explain QV and token bonding or I can do that later and provide that as a path tonight**
 
 Tokens add an incentive model to the development of networking protocols. 
-
-If you're an engineer, you can make more money working on open source systems than at Facebook or Google or Amazon. 
 
 ## Network Security
 -- byzantine generals paper
