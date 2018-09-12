@@ -20,71 +20,53 @@ We're going to use issues to manage project proposals as well as any relevant di
 > _Detailed description of the project_
 
 ___
-## Pull Request example for submitting a request for funding
+## Pull Request example for submitting a request for posting a project
 ```
 # Request to Post Project (#X)
 
 **Team name**: Smerkle
+
+**[Proof of Concept](https://github.com/smerkle)**
 
 **Open Roles**: 
 1. [Developer Roles]():
   * Building an [Aragon](https://aragon.org) DApp. Preferences: JavaScript (or willing to learn), interest in Economics/Governance
   * Scaling to Production with [Parity](https://paritytech.io)/[Polkadot](https://polkadot.network). Preferences: Rust (or willing to learn)
   * (Coming Soon) Data Analyst Role for Analyzing Information Database. Preferences: Python 
+2. [Research Roles]():
+  * Read and research the mechanisms discussed in [Radical Markets](http://radicalmarkets.com). Preference: Interest in Economics/Governance
 2. [Community Manager Roles]():
-  * Managenment of Twitter, Peepeth, Reddit, Telegram, Riot, etc.
-  * 
+  * Management of Twitter, Peepeth, Reddit, Telegram, Riot, etc.
 
 ## Proposal
+[Smerkle](https://github.com/smerkle) is a database for blockchain knowledge. The first iteration, [Valdrada]() will function as a free library for the community. In the future, we plan to migrate the database permissions to enable decentralized governance to curate content. Because our primary use case is organizing information, we will start with a simple Node.js server before gradually migrating to decentralized storage as well as Ethereum smart contracts to govern permissions. Eventually we want to migrate to Parity/Polkadot because [Rust](https://paritytech.io/why-rust/); also we believe in the team and the [tech](https://paritytech.io/what-is-substrate/) that they're developing.
 
-
-
-
-## Proposal
-
-AraEagles is a proposal for the _Eagles on the blockchain_ call for projects, with the intent of implementing a fully ERC721-compliant AragonOS app that tokenizes eagles on the blockchain.
-
-Our approach is novel since we want to implement AraEagles as a parachain by using Polkadot, therefore avoiding the clutter that eagles on the blockchain would produce on the Ethereum blockchain. Our research has shown that without doing our own parachain, we could potentially endanger the Ethereum network.
-
-We are a driven team willing to take on this project and work on it for the next year.
 ```
 ### **Preview of an Pull Request example:**
-> # Request for Nest membership and funding (#X)
+> # Request to add Smerkle (#X)
 >
-> **Team name**: AraEagles
+> **Team name**: Smerkle
 >
-> **Proof of concept / research whitepaper**: https://github.com/example/cryptoeagles-erc721
+> **Proof of concept**: https://github.com/smerkle
 >
-> **Burn rate**: $10k/month
->
-> **Legal structure**: NA / Aragon DAO
->
-> **[Team and roadmap](1/files)**
+> **Open Roles**: [Developer](), [Research](), [Community]()
 >
 > ## Proposal
 >
-> AraEagles is a proposal for the _Eagles on the blockchain_ call for projects, with the intent of implementing a fully ERC721-compliant AragonOS app that tokenizes eagles on the blockchain.
->
-> Our approach is novel since we want to implement AraEagles as a parachain by using Polkadot, therefore avoiding the clutter that eagles on the blockchain would produce on the Ethereum blockchain. Our research has shown that without doing our own parachain, we could potentially endanger the Ethereum network.
->
-> We are a driven team willing to take on this project and work on it for the next year.
+> [Smerkle]() is a database for blockchain knowledge. The first iteration, [Valdrada]() will function as a free library for the community.
+> In the future, we plan to migrate the database permissions to enable decentralized governance to curate content. Because our primary use case is organizing information, we will start with a simple Node.js server before gradually migrating to decentralized storage as well as Ethereum smart contracts to govern permissions. 
+> Eventually we want to migrate to Parity/Polkadot because [Rust](https://paritytech.io/why-rust/); also we believe in the team and the [tech](https://paritytech.io/what-is-substrate/) that they're developing.
 
 ___
 ## Empty Pull Request template for submitting a request for funding
 ```
-# Request for Nest membership and funding (#X)
+# Request to Post Project(#X)
 
 **Team name**:
 
-**Proof of concept / research whitepaper**:
+**Proof of concept**:
 
-**Burn rate**:
-
-**Legal structure**:
-
-**[Team and roadmap](1/files)**
-
-
+**Open Roles**:
 
 ## Proposal
 ```

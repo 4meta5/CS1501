@@ -1,4 +1,4 @@
-# Reading Resources
+# Reading Resources Week 1
 
 For everyone:
 1. [Blockchain Underpinnings: Hashing](https://medium.com/@ConsenSys/blockchain-underpinnings-hashing-7f4746cbd66b) -- January 2018, Consensys

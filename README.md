@@ -45,6 +45,10 @@ Resources Week 1 (9/7-9/14):
 * [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/1/reading.md)
 * [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/1/path.md)
 
+Resources Week 2 (9/14-9/21):
+* [Reading]
+* [Paths]
+
 ### Economics/Governance <a name="Cryptoeconomics"></a>
 This track focuses on economics, governance, and incentive management. **Incentive loops** are the *magic sauce* of blockchain protocols and communities. By studying the construction of permissionless incentive loops, we can help students grasp the more subtle features that enable (to some extent) *decentralization* and *trustless* dispute resolution. Moreover, by understanding the incentive dynamics behind blockchain actors, we can help students realize the limitations of modern blockchain protocols.
 
