@@ -59,9 +59,7 @@ Resources Week 1 (9/7-9/14):
 ### Application Development <a name="BUIDL"></a>
 This tracks focuses on helping students build software that interacts with the blockchain. This track will provide resources oriented towards coding tutorials and practical examples. It is our hope that the work in this track closely corresponds to the [Projects](#Projects). We organize resources in this track according to programming language. Our favorite programming languages are Rust, Golang, Solidity, Python, Javascript/ES6, and WebAssembly (but we may only focus on a few).
 
-Resources Week 1 (9/7-9/14):
-* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/GetStarted/reading.md)
-* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/GetStarted/path.md)
+> Check out [what we offer](Tracks/AppDev/curriculum.md) for students interested in learning this languages.
 
 <!-- Week 1:
 
