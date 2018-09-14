@@ -1,26 +1,30 @@
-# Building Apps
+# Application Development
 
- # Cryptography Track
+Application Development is split up into a few different sections based on language. This document contains justifications for studying each language as well as resources for getting started in each language. 
+* [Rust](#rust)
+* [Go](#go)
+* [JavaScript](#javascript)
+* [Python](#python)
 
-This track is focused on building blockchain applications and interacting with the blockchain. The resources provided students on this track will mainly consist of tutorials/repos. There is an emphasis on coding, and resources are usually organized according to programming language.
+> Resources are grouped according to language in ```./language``` and each directory contains a ```schedule.md``` that provides a high level overview of the readings/themes for each week.
 
- All resources are stored in the numbered directories in the current directory. Typical resources that may be placed in the numbered directories include:
- 1. [Reading Resources](#reading)
- 2. [Paths](#paths)
- 3. [Quiz](#quiz)
+## Rust
+Rust offers [A LOT](https://paritytech.io/why-rust/) of desirable features that makes it a very good programming language for blockchains. In addition, [Parity](https://www.parity.io/technologies/) is coding their software stack in Rust (both their blockchain clients and the [Polkadot network](https://polkadot.network)). For our purposes, we'll build Rust blockchain applications using Parity/Polkadot.
 
- ## Reading
- 
- In terms of reading, we'll offer 5-10 reading resources per week. These readings tend to follow a common trend. Each of the readings is placed in a subdirectory in the current directory according to the order in which they were created. 
-<!-- could have them guess the trend on fridays for the 10 minute kahoot quiz-->
-<!-- an even better idea is to build questions for all of the readings -->
+> Check out the [schedule](Rust/schedule.md) for more information
 
-## Paths
+## Go
+Go was designed by Google for Web servers and Networking with very good concurrency support. There are many useful libraries for blockchain interaction that are coded in Go. We'll focus on developing with both the [Loom Golang SDK](https://loomx.io/developers/docs/en/go-loom-clients.html) as well as [Tendermint](https://github.com/tendermint). Both of these clients offer scalability over many existing blockchain implementations.
 
-Paths are designed to organize knowledge according to specific narratives or macro trends. Often times, it can be helpful to trace the origin of modern ideas. For this track, paths are usually organized by programming language.
+> Check out the [schedule](Go/schedule.md) for more information
 
-## Quiz
+## JavaScript
+> [The Birth & Death of JavaScript](https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript)
+JavaScript is still a very popular programming language, especially for front-end web applications. Despite its [humble](https://en.wikipedia.org/wiki/JavaScript) beginnings, JavaScript can be used for almost anything nowadays. For our purposes, we'll focus on developing with [AragonOS](https://github.com/aragon/aragonOS), but we may experiment with [other](https://github.com/counterfactual/contracts/blob/develop/ARCHITECTURE.md) libraries. In addition, we will probably also cover **Solidity, which has very similar syntax**.
 
-There may be quizzes that go along with the resources to test reading comprehension. 
+> Check out the [schedule](JavaScript/schedule.md) for more information
 
-<!-- consider offering some sort of competition where people can submit notes that summarize the reading in a very short number of words; I can do this for the first week -->
+## Python
+There are many good [reasons](https://hackernoon.com/reasons-to-choose-python-for-ai-based-projects-7e3e6c8b954a) to code in Python. This track will emphasize data science and may focus on interacting with [BigChainDB](https://github.com/bigchaindb/bigchaindb). 
+
+> Check out the [schedule](Python/schedule.md) for more information
