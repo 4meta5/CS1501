@@ -3,7 +3,7 @@
 
 UVA Introduction to Blockchain [Website](https://uvablockchain.gitbook.io)
 
-| [Introduction](#introduction) | [Tracks](#Tracks) | [Cryptography](#Cryptography) | [Economics](#Cryptoeconomics) | [Application Development](#BUIDL) | [Projects](#Projects) | [Managing Contributions](#contribs)
+| [Introduction](#introduction) | [Tracks](#Tracks) | [Cryptography](#Cryptography) | [Economics](#Cryptoeconomics) | [Application Development](#BUIDL) | [Projects](#Projects) | [Library](https://github.com/smerkle/KnowledgeGraph/blob/master/library.md)
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 
 
@@ -42,8 +42,8 @@ This track focuses on the cryptography related to blockchain technology. The mat
 The [Cryptography](#Cryptography) track will work closely with the UVA Blockchain Research Lab.
 
 Resources Week 1 (9/7-9/14):
-* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/1/reading.md)
-* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/1/path.md)
+* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/GetStarted/reading.md)
+* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Cryptography/GetStarted/path.md)
 
 Resources Week 2 (9/14-9/21):
 * [Reading]
@@ -53,15 +53,15 @@ Resources Week 2 (9/14-9/21):
 This track focuses on economics, governance, and incentive management. **Incentive loops** are the *magic sauce* of blockchain protocols and communities. By studying the construction of permissionless incentive loops, we can help students grasp the more subtle features that enable (to some extent) *decentralization* and *trustless* dispute resolution. Moreover, by understanding the incentive dynamics behind blockchain actors, we can help students realize the limitations of modern blockchain protocols.
 
 Resources Week 1 (9/7-9/14):
-* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Economics/1/reading.md)
-* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Economics/1/path.md)
+* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Economics/GetStarted/reading.md)
+* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/Economics/GetStarted/path.md)
 
 ### Application Development <a name="BUIDL"></a>
 This tracks focuses on helping students build software that interacts with the blockchain. This track will provide resources oriented towards coding tutorials and practical examples. It is our hope that the work in this track closely corresponds to the [Projects](#Projects). We organize resources in this track according to programming language. Our favorite programming languages are Rust, Golang, Solidity, Python, Javascript/ES6, and WebAssembly (but we may only focus on a few).
 
 Resources Week 1 (9/7-9/14):
-* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/1/reading.md)
-* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/1/path.md)
+* [Reading](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/GetStarted/reading.md)
+* [Paths](https://github.com/AmarRSingh/CS1501/blob/master/Tracks/AppDev/GetStarted/path.md)
 
 <!-- Week 1:
 
@@ -104,9 +104,6 @@ Other Ideas:
 (5) Trading systems that use KnowledgeGraph (happy to help with this)
 (6)  -->
 This part of the class will encourage students to form teams and build projects. It is [under construction](https://github.com/AmarRSingh/CS1501/blob/master/Projects/proposal-standard.md).
-
-## Managing Contributions <a name="contribs"></a>
-[Pando](https://github.com/ryhope/pando) and/or [Sourcecred](https://github.com/sourcecred/sourcecred)
 
 Resources:
 * [Adam Pritchard Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)

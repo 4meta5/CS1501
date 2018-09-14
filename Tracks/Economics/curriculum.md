@@ -1,6 +1,6 @@
  # Economics Track
 
- This track focuses on economics/governance related to blockchain technology. Many of the ideas in this section are very new and have not been thoroughly tested/reviewed.
+ This track focuses on economics/governance related to blockchain technology. To get an idea of the type of material we'll assign for reading in this track, read David Hoffman's article on [Incentive Loops](ttps://medium.com/@Trustless_State/incentive-loops-how-crypto-actually-fixes-stuff-a7aa7aa3ae04) and Josh Stark's [Introduction to Cryptoeconomics](https://medium.com/l4-media/making-sense-of-cryptoeconomics-5edea77e4e8d). Our work will heavily reference [Radical Markets](http://radicalmarkets.com); we suggest buying a print copy!
 
  All resources are stored in the numbered directories in the current directory. Typical resources that may be placed in the numbered directories include:
  1. [Reading Resources](#reading)

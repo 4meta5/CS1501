@@ -5,6 +5,8 @@ Objectives:
  -->
 ## Breakdown of what you should include in a Request to Post a Project
 
+[Open Roles](/open_roles.md)
+
 We're going to use issues to manage project proposals as well as any relevant discussion. 
 
 > # Request to Post Project (#X)
