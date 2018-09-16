@@ -17,7 +17,7 @@ Our curriculum will follow the readings and tutorials listed below:
 * [The Rust Book](https://doc.rust-lang.org/book/)
 * [Listening and Trust I](http://aturon.github.io/2018/05/25/listening-part-1/) -- May 25, 2018; Aaron Turon
 
-> check out [the relevant challenges](challenges.md#shortblockchain)
+> check out [the relevant challenges](challenges.md/#shortblockchain)
 
 ## More Rust and Some Parity/Ethereum <a name="sprint2"></a>
 Our curriculum will follow the readings and tutorials listed below:
