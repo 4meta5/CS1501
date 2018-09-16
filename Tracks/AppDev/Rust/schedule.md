@@ -17,18 +17,18 @@ Our curriculum will follow the readings and tutorials listed below:
 * [The Rust Book](https://doc.rust-lang.org/book/)
 * [Listening and Trust I](http://aturon.github.io/2018/05/25/listening-part-1/) -- May 25, 2018; Aaron Turon
 
-> check out [the relevant challenges](challenges.md/#shortblockchain)
+> check out [the relevant challenges](challenge.md#shortblockchain)
 
 ## More Rust and Some Parity/Ethereum <a name="sprint2"></a>
 Our curriculum will follow the readings and tutorials listed below:
 * [The Rust Book](https://doc.rust-lang.org/book/)
 * [Parity-Ethereum](https://github.com/paritytech/parity-ethereum)
 
-> check out [the relevant challenges](challenges.md#substrate)
+> check out [the relevant challenges](challenge.md#substrate)
 
 ## Parity/Polkadot <a name="sprint3"></a>
 Our curriculum will follow the readings and tutorials listed below:
 * [The Rust Book](https://doc.rust-lang.org/book/)
 * [Functional Programming Ideas](https://radiopublic.com/new-rustacean-learning-the-rust-p-6NVKA6/ep/s1!13800)
 
-> check out [the relevant challenges](challenges.md#grin)
+> check out [the relevant challenges](challenge.md#grin)
