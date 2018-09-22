@@ -87,6 +87,7 @@ String literals are immutable because ```&str``` (string literal type) is an imm
 ## Basic Programming Concepts <a name="basics"></a>
 * [Shadowing](#shadowing)
 * [The Stack and the Heap](#stackheap)
+* [Structs](#structs)
 
 ### Shadowing <a name="shadowing"></a>
 Shadowing is different than marking a variable as ```mut```, because we’ll get a compile-time error if we accidentally try to reassign to this variable without using the ```let``` keyword. By using ```let```, we can perform a few transformations on a value but have the variable be immutable after those transformations have been completed. [Chapter 3 of The Book](https://doc.rust-lang.org/book/2018-edition/ch03-01-variables-and-mutability.html)
@@ -98,3 +99,31 @@ The **stack** stores values in the order it gets them and removes the values in 
 
 When the size of data is unknown at compile time, this data is stored on the **heap**. To put data on the heap, you request some space from the OS and the OS provides a pointer to the address of that location. This process is called *allocating on the heap*. Accessing data in the heap is slower than accessing data on the stack because you have to follow a point to get there. Allocating a large amount of space on the heap can also take time
 
+### Structs <a name="structs"></a>
+This shows how the struct update syntax looks.
+```
+let user2 = User {
+    email: String::from("another@example.com"),
+    username: String::from("anotherusername567"),
+    ..user1
+};
+```
+
+**Methods** are similar to functions: except they're defined within the context of a struct and their first parameter is always ```self``` (which represents the instance of the struct the method is being called on).
+```
+struct Block {
+    hash_pointer: u32,
+    merlkle_root_hash: u32,
+}
+
+impl Block {
+    fn printMerkle(&self) -> u32 {
+        println!("Merkle root hash is {}", self.merkle_root_hash);
+        self.merkle_root_hash
+    }
+}
+```
+
+The main benefit of using methods instead of functions, in addition to using method syntax and not having to repeat the type of ```self``` in every method’s signature, is for organization. We’ve put all the things we can do with an instance of a type in one ```impl``` block rather than making future users of our code search for capabilities of ```Rectangle``` in various places in the library we provide.
+
+Structs let you create custom types that are meaningful for your domain. By using structs, you can keep associated pieces of data connected to each other and name each piece to make your code clear. Methods let you specify the behavior that instances of your structs have, and associated functions let you namespace functionality that is particular to your struct without having an instance available.
