@@ -1,4 +1,4 @@
-# Coding Rust Notes
+# Coding Rust Cheatsheet (WIP)
 
 Rust is a statically typed language, which means that it must know the types of all variables at compile time. The compiler can usually infer what type we want to use based on the value and how we use it.
 
@@ -10,6 +10,8 @@ These are notes from [The Rust Book](https://doc.rust-lang.org/book/). They star
 * [Basics](#basics)
     * [Shadowing](#shadowing)
     * [The Stack and the Heap](#stackheap)
+    * [Structs](#structs)
+    * [Enums and Pattern Matching](#enums)
 
 ## Guessing Game (Ch.2) <a name="guess"></a>
 Switching from an ```expect``` call to a ```match``` expression is how you generally move from crashing on an error to handling the error.
@@ -127,3 +129,108 @@ impl Block {
 The main benefit of using methods instead of functions, in addition to using method syntax and not having to repeat the type of ```self``` in every method’s signature, is for organization. We’ve put all the things we can do with an instance of a type in one ```impl``` block rather than making future users of our code search for capabilities of ```Rectangle``` in various places in the library we provide.
 
 Structs let you create custom types that are meaningful for your domain. By using structs, you can keep associated pieces of data connected to each other and name each piece to make your code clear. Methods let you specify the behavior that instances of your structs have, and associated functions let you namespace functionality that is particular to your struct without having an instance available.
+
+## Enums and Pattern Matching <a name="enums"></a>
+```
+enum Mood {
+    Happy,
+    Sad,
+    Mad,
+}
+```
+Mood is now an enumeration type with variants ```{Happy, Sad, Mad}```. The variants of the enum are namespaced under the identifier (```Mood```). This allows us to define special functions that take any variant of the same enum by specifying the enum type for the function's input.
+
+The way we create instants of the variats is with double colons:
+```
+let amars_happy = Mood::Happy;
+let amar_mad = Mood::Mad;
+```
+
+Advantage for **Enums over Structs**: Enums can have variants of different types and amounts of associated data.
+
+A common code pattern is to define structs and use these structs to store data in the variants of an enum:
+```
+struct ProofOfStake {
+    cap_req:        u32,
+    inflation_rate: u32,
+    tps:            u32,
+    -- more code -- 
+}
+
+struct ProofOfWork {
+    hash_rate:      u32,
+    avg_fee:        u32,
+    tps:            u32,
+    -- more code --
+}
+
+enum BlockchainConsensus {
+    Ethereum(ProofOfStake),
+    Bitcoin(ProofOfWork)
+}
+```
+
+**Option Enum in Rust**<br>
+In his 2009 presentation “Null References: The Billion Dollar Mistake,” Tony Hoare, the inventor of null, has this to say:
+> I call it my billion-dollar mistake. At that time, I was designing the first comprehensive type system for references in an object-oriented language. My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn’t resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years.
+
+```
+enum Option<T> {
+    Some(T),
+    None,
+}
+```
+
+Because the ```Option<T>``` enum is so useful, it is does not need to be brought into scope and you can use its variants directly instead of referencing the identifier.
+```
+let some_number = Some(5);
+let some_string = Some("a string");
+
+let absent_number: Option<i32> = None;
+```
+When we have a ```Some``` value, we know that a value is present and the value is held within the ```Some```. When we have a ```None``` value, in some sense, it means the same thing as null: we don’t have a valid value. So why is having ```Option<T>``` any better than having null?
+
+In short, because ```Option<T>``` and ```T``` (where ```T``` can be any type) are different types, the compiler won’t let us use an ```Option<T>``` value as if it were definitely a valid value. For example, this code won’t compile because it’s trying to add an ```i8``` to an ```Option<i8>```:
+```
+let x: i8 = 5;
+let y: Option<i8> = Some(5);
+
+let sum = x + y;
+```
+
+**How is this better than having a null value?**<br>
+In order to have a value that can possibly be null, you must explicitly opt in by making the type of that value ```Option<T>```. Then, when you use that value, you are required to explicitly handle the case when the value is ```null```. Everywhere that a value has a type that isn’t an ```Option<T>```, you can safely assume that the value isn’t ```null```. This was a deliberate design decision for Rust to limit ```null```’s pervasiveness and increase the safety of Rust code.
+
+---
+**Match Expressions**
+```
+enum StudentYear {
+    Freshman,
+    Sophomore,
+    Junior,
+    Senior(Job),
+}
+
+fn class_number(studentYear: StudentYear) -> i8 {
+    match studentYear {
+        StudentYear::Freshman => 1,
+        StudentYear::Sophomore => 2,
+        StudentYear::Junior => 3,
+        StudentYear::Senior => 4,
+    }
+}
+```
+Each of the match arms has two parts <br>
+1. Pattern - the enum variant in this case
+2. Arm - code to run if the pattern is matched
+
+**Concise Control Flow with ```if let```**<br>
+The ```if let``` syntax lets you combine ```if``` and ```let``` into a less verbose way to handle values that match one pattern while ignoring the rest. 
+```
+if let StudentYear::Senior = studentYear {
+    println!("Student is in their {}th year", 4);
+} else {
+    println!("Student is NOT in their {}th year", 4);
+}
+```
+
