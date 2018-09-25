@@ -6,12 +6,15 @@ These are notes from [The Rust Book](https://doc.rust-lang.org/book/). They star
 * [Guessing Game](#guess)
 * [Immutability](#immutability)
     * [Variables and Type Annotations](#variables)
+    * [Shadowing](#shadowing)
     * [Ownership](#ownership)
 * [Basics](#basics)
-    * [Shadowing](#shadowing)
     * [The Stack and the Heap](#stackheap)
+    * [Using Modules to Reuse and Organize Code](#modules)
+* [Data Structures](#datastructures)
     * [Structs](#structs)
     * [Enums and Pattern Matching](#enums)
+    * [Common Collections](#collections)
 
 ## Guessing Game (Ch.2) <a name="guess"></a>
 Switching from an ```expect``` call to a ```match``` expression is how you generally move from crashing on an error to handling the error.
@@ -19,6 +22,7 @@ Switching from an ```expect``` call to a ```match``` expression is how you gener
 
 ## Immutability <a name="immutablity"></a>
 * [Variables and Type Annotations](#variables)
+* [Shadowing](#shadowing)
 * [Ownership](#ownership)
 
 ### Variables and Type Annotations <a name="variables"></a>
@@ -27,6 +31,9 @@ Switching from an ```expect``` call to a ```match``` expression is how you gener
 * Type annotations enable static checking. 
 
 Consider comparing performance for different data structures between mutable implementations and *functional*-style code that relies on immutability (which is safer for concurrency).
+
+### Shadowing <a name="shadowing"></a>
+Shadowing is different than marking a variable as ```mut```, because we’ll get a compile-time error if we accidentally try to reassign to this variable without using the ```let``` keyword. By using ```let```, we can perform a few transformations on a value but have the variable be immutable after those transformations have been completed. [Chapter 3 of The Book](https://doc.rust-lang.org/book/2018-edition/ch03-01-variables-and-mutability.html)
 
 ### Ownership <a name="ownership"></a>
 Some languages (ie Java) have garbage collection that constantly looks for memory that is no longer being used. In other languages (C++), the programmer must explicity allocate and deallocate (free) memory. In **Rust**, memory is managed through a system of ownership with a set of rules that the compiler checks at compile time.
@@ -87,12 +94,8 @@ They're the same; the top is noninclusive for the last number and the second syn
 String literals are immutable because ```&str``` (string literal type) is an immutable reference.
 
 ## Basic Programming Concepts <a name="basics"></a>
-* [Shadowing](#shadowing)
 * [The Stack and the Heap](#stackheap)
-* [Structs](#structs)
-
-### Shadowing <a name="shadowing"></a>
-Shadowing is different than marking a variable as ```mut```, because we’ll get a compile-time error if we accidentally try to reassign to this variable without using the ```let``` keyword. By using ```let```, we can perform a few transformations on a value but have the variable be immutable after those transformations have been completed. [Chapter 3 of The Book](https://doc.rust-lang.org/book/2018-edition/ch03-01-variables-and-mutability.html)
+* [Using Modules to Reuse and Organize Code](#modules)
 
 ### The Stack and the Heap <a name="stackheap"></a>
 In a systems programming language like Rust, whether a value is on the stack or the heap influences how you can interact with it.
@@ -100,6 +103,75 @@ In a systems programming language like Rust, whether a value is on the stack or 
 The **stack** stores values in the order it gets them and removes the values in the opposite order (LIFO = last in, first out). The stack is fast because of the way it accesses the data: it never has to search for a place to put new ata or a place to get data from because it can only pop or push values from the top of the stack. All data on the stack must take up a known, fixed size.
 
 When the size of data is unknown at compile time, this data is stored on the **heap**. To put data on the heap, you request some space from the OS and the OS provides a pointer to the address of that location. This process is called *allocating on the heap*. Accessing data in the heap is slower than accessing data on the stack because you have to follow a point to get there. Allocating a large amount of space on the heap can also take time
+
+### Using Modules to Reuse and Organize Code <a name="modules"></a>
+A **module** is a namespace that contains definitions of functions or types, and you can choose whether those defintions are visible outside their module using the ```pub``` keyword. 
+* The ```mod``` keyword declares a new module.
+* By default, functions, types, constants, and modules are private. 
+* The ```use``` keyword brings modules or the definitions inside modules, into scope so it's easier to refer to them.
+
+The rules of modules with respect to files:
+* If a module named ```foo``` has no submodules, you should put the declarations for ```foo``` in a file named *foo.rs*.
+* If a module named ```foo``` does have submodules, you should put the declarations for ```foo``` in a file named *foo/mod.rs*.
+
+**Privacy Rules**: <br>
+* If an item is **public**, it can be accessed through any of its parent modules.
+* If an item is **private**, it can be accessed only by its immediate parent module and any of the parent's child modules.
+
+**Bringing Names into Scope with the ```use``` Keyword** <br>
+```
+pub mod laugh {
+    pub mod at {
+        pub mod me {
+            pub fn now() {}
+        }
+    }
+}
+
+use laugh::at::me;
+
+fn main() {
+    me::now();
+}
+```
+The ```use``` keyword brings only what we've specified into scope: it does not bring children of modules into scope.
+
+Because enums also form a similar namespace to modules, we can bring an enum's variants into scope with ```use``` as well. For any kind of ```use``` statement, if you're bringing multiple items from a namespace into scope, you can use this syntax:
+```
+enum Fruits {
+    Apple,
+    Orange,
+    Grape,
+}
+
+use Fruits::{Apple, Orange};
+
+fn main() {
+    let apple = Apple;
+    let orange = Orange;
+    let grape = Fruits::Grape;
+}
+```
+
+We can bring all items in a namespace into scope at once using the ```*``` (glob) syntax.
+```
+use Fruits::*;
+```
+
+To access a parent module, you use ```super``` to move up one module in the hierarchy from the current module
+```
+super::individual::work();
+```
+
+We can also use leading colons to let Rust know that we want to start from the root and list the whole path:
+```
+::individual::work();
+```
+
+## Data Structures <a name="datastructures"></a>
+* [Structs](#structs)
+* [Enums and Pattern Matching](#enums)
+* [Common Collections](#collections)
 
 ### Structs <a name="structs"></a>
 This shows how the struct update syntax looks.
@@ -233,4 +305,144 @@ if let StudentYear::Senior = studentYear {
     println!("Student is NOT in their {}th year", 4);
 }
 ```
+
+## Common Collections <a name="collections"></a>
+
+Collections can contain multiple values and the data that collections point to are **stored in the heap**.
+
+[Collections](https://doc.rust-lang.org/std/collections/index.html) can be grouped into four major categories: <br>
+* Sequences:  Vec, VecDeque, LinkedList <br>
+* Maps:       HashMap, BTreeMap <br>
+* Sets:       HashSet, BTreeSet <br>
+* Misc:       BinaryHeap <br>
+
+
+> "To get this out of the way: you should probably just use Vec or HashMap. These two collections cover most use cases for generic data storage and processing. They are exceptionally good at doing what they do. All the other collections in the standard library have specific use cases where they are the optimal choice, but these cases are borderline niche in comparison. Even when Vec and  HashMap are technically suboptimal, they're probably a good enough choice to get started." ~ [std::collections documentation](https://doc.rust-lang.org/std/collections/index.html)
+
+Likewise, we'll discuss the three most common collections seen in Rust programs:<br>
+* A **vector** allows you to store a variable number of values next to each other.
+* A **String** is a collection of characters.
+* A **hash map** allows you to associate a value with a particular key. It's a particular implementation of the more general data structure called a *map*.
+
+---
+```Vec<T>``` (vector) can only store values of the same type.  To create a new, empty vector, we call the ```Vec::new``` function.
+```
+let v: Vec<i32> = Vec::new(); //create a new, empty vector for holding values of type i32
+```
+
+We can also use the ```vec!``` macro to create a ```Vec<T>``` that has initial values. We can access the items in a vector using either the ```get``` method or the indexing syntax: <br>
+```
+let v = vec![1, 2, 3, 4, 5];
+let s = &v[4];             //indexing syntax
+let v_index = 2;
+
+match v.get(v_index) {
+    Some(_) => { println!("Reachable element at index: {}", v_index); },
+    None => { println!("Unreachable element at index: {}", v_index); }
+}
+```
+
+We can use an [enum](#enums) to store multiple types in a vector.
+
+---
+Strings are implemented as a collection of bytes. Rust only has one string type in the core language, the string slice ```str``` that is usually seen in its borrowed form ```&str```. Conversely, the ```String``` type is provided by Rust's standard library, and is a growable, mutable, owned UTF-8 encoded string type. To create a new, empty ```String```,
+```
+let mut s = String::new();
+```
+We can use the ```to_string``` method to create a ```String``` from a string literal.
+```
+let data = "initial contents";
+
+let s = data.to_string();
+
+// the method also works on a literal directly:
+let s = "initial contents".to_string();
+```
+We can also use ```String::from``` to create a ```String``` from a string literal.
+```
+let s = String::from("initial contents");
+```
+We can grow a ```String``` by using the ```push_str``` mtethod to append a string slice.
+```
+let mut s = String::from("foo");
+s.push_str("bar");
+```
+We can also use the ```+``` operator to add two strings, but this follows certain rules
+```
+let s1 = String::from("Hello, ");
+let s2 = String::from("world!");
+let s3 = s1 + &s2; // Note s1 has been moved here and can no longer be used
+```
+Specifically...
+```
+fn add(self, s: &str) -> String {
+```
+Note that the compiler uses *deref coercion* to coerce ```&String``` into a ```&str```.
+
+**Rust strings don't support indexing**. But why not? Let's consider **internal representation**. A ```String``` is a wrapper over a ```Vec<u8>```. UTF-8 complicates indexing because bytes don't always correspond to single letters. Therefore, Rust provides different ways of interpreting the raw string data that computers store so that each program can chose the interpretation it needs. 
+
+The final reason that Rust doesn't allow us to index into a ```String``` to get a character is that indexing operations are expected to always take constant time ```(O(1))```. But it isn't possible to guarantee that performance with a ```String```, because Rust would have to iterate through all the contents to determine how many valid characters were therein.
+
+---
+The type ```HashMap<K, V>``` stores a mapping of keys of type ```K``` to values of type ```V```.
+
+```
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue"), 10)
+```
+ This isn't as common as ```String``` or ```Vec<T>``` so it must be brought into scope with the ```use``` keyword.
+
+ Like vectors, hash maps are homogeneous; all of the keys must have the same type, and all of the value must also have the same type.
+
+ Another way of constructing hash maps is by using the ```collect``` method on a vector of tuples, where each typle consists of a key and a value. The ```collect``` method gathers data intoa  number of collection types, including ```HashMap```. 
+ ```
+use std::collections::HashMap;
+
+let colors  = vec![String::from("Blue"), String::from("Yellow")];
+let numbers = vec![8, 1];
+
+let colorToNumbers: HashMap<_, _> = colors.iter().zip(numbers.iter()).collect();
+ ```
+The type annotation ```HashMap<_, _>``` is needed here because it's possible to ```collect``` into many different data structures; the underscores enable Rust to infer the types based on the data in the vectors.
+
+**Hash Maps and Ownership**: For types that implement the ```Copy``` trait, like ```i32```, the values are copied into the hash map. For owned values like ```String```, the values will be moved and the hash map will be the owner of those values.
+
+We can get a value out of the hash map by providing its key to the ```get``` method:
+```
+use std::collections::HashMap;
+
+let mut ppg = HashMap::new();
+
+ppg.insert(String::from("LBJ"), 30);
+ppg.insert(String::from("Jordan"), 40);
+ppg.insert(String::from("Amar"), 100);
+
+let Jordan = String::from("Jordan");
+let JordanPoints = ppg.get(&Jordan);
+-- we also need to handle the Option<&V> returned with match presumably --
+```
+We can iterate over each key/value pair in a hash map using a ```for``` loop:
+```
+use std::collections::HashMap;
+
+let mut totalETH = HashMap::new();
+
+totalEth.insert(String::from("Amar"), 100);
+totalEth.insert(String::from("Omar"), 1000000);
+
+for (key, value) in &totalEth {
+    println!("{}: {}", key, value);
+}
+```
+
+To update a Hash Map, we can <br>
+* replace the old value with the new value <br>
+* keep the old value and ignore the new value (only adding if the key doesn't already have a value) <br>
+* combine the old value and the new value <br>
+
+
+
 
