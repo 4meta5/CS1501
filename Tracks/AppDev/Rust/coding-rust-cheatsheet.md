@@ -482,4 +482,6 @@ fn main() {
 ```
 > Like the ```Option``` enum, the ```Result``` enum and its variants have been imported in the prelude.
 
+**NEED TO FINISH THIS SECTION, but am doing [this tutorial first and maybe a project](https://stevedonovan.github.io/rust-gentle-intro/)**
+
 ### Generic Types, Traits, and Lifetimes <a name="generic"></a>
