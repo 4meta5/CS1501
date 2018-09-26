@@ -15,6 +15,8 @@ These are notes from [The Rust Book](https://doc.rust-lang.org/book/). They star
     * [Structs](#structs)
     * [Enums and Pattern Matching](#enums)
     * [Common Collections](#collections)
+* [Error Handling](#error)
+    * [Generics](#generic)
 
 ## Guessing Game (Ch.2) <a name="guess"></a>
 Switching from an ```expect``` call to a ```match``` expression is how you generally move from crashing on an error to handling the error.
@@ -443,6 +445,41 @@ To update a Hash Map, we can <br>
 * keep the old value and ignore the new value (only adding if the key doesn't already have a value) <br>
 * combine the old value and the new value <br>
 
+## Error Handling <a name="error"></a>
 
+Rust doesn't have *exceptions* like other languages. Instead, Rust has the type ```Result<T, E>``` for recoverable errors and the ```panic!``` macro that stops execution when the program encounters an unrecoverable error. 
 
+---
+When the ```panic!``` macro executes, your program will print a failure message, unwind, clean up the stack, and then quit. **Unwinding** in this context means that Rust walks back up the stack and cleans up the data from each function it encounters. The alternative to this is to immediately *abort*, which ends the program without cleaning up. 
 
+We can set the ```RUST_BAKCTRACE``` environment variable to get a backtrace of exactly what happened to cause an error. A *backtrace* is a list of all the functions that have been called to get to this point. Backtraces in Rust work as they do in other languages: start from the bottom and read until you see files you wrote to find the error.
+
+---
+**Recoverable Errors with ```Result```**<br>
+In many cases, it is better to respond to a function failure instead of requiring the program to stop entirely. An example of when this may be useful would be when you're automating the editing of files and need to ensure that if a file does not exist, then a new file can be created and this new file will be edited accordingly.
+
+The ```Result``` enum is defined as having two variants, ```Ok``` and ```Err``` <br>
+```
+enum Result<T, E> {
+    Ok(T)
+    Err(E)
+}
+```
+The ```T``` and ```E``` are [generic type parameters](#generic). ```T``` represents the value that will be returned in the ```Ok``` variant in the successful case and, in the event of failure, ```E``` is returned in the ```Err``` variant. Let's consider how this would work in the context of validating transactions (like a light client).
+```
+use blockchain::spv::Verify;
+
+fn main() {
+    let t = Verify::transaction(tx_data);
+
+    let t = match t {
+        Ok(tx_data) => tx_data,
+        Err(error) => {
+            panic!("There was a problem verifying the transaction data: {:?}", error)
+        },
+    };
+}
+```
+> Like the ```Option``` enum, the ```Result``` enum and its variants have been imported in the prelude.
+
+### Generic Types, Traits, and Lifetimes <a name="generic"></a>
