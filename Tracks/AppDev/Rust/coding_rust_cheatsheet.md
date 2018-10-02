@@ -22,6 +22,9 @@ These are notes from [The Rust Book](https://doc.rust-lang.org/book/), but they 
     * [Traits](#traits)
     * [Lifetimes](#lifetimes)
 * [Testing](#testing)
+    * [Running Tests](#runtests)
+    * [Unit Tests](#unittests)
+    * [Integration Tests](#integrationtests)
 
 ## Guessing Game (Ch.2) <a name="guess"></a>
 Switching from an ```expect``` call to a ```match``` expression is how you generally move from crashing on an error to handling the error.
@@ -982,6 +985,132 @@ let s: &'static str = "I have a static lifetime.";
 ```
 The text of this string is stored directly in the program's binary (which is always available).
 
-
 ## Testing <a name="testing"></a>
-* [Pick up here](https://doc.rust-lang.org/book/2018-edition/ch11-01-writing-tests.html)
+
+The bodies of test functions typically perform these three actions:
+1. Set up any necessary data or state
+2. Run code that is being tested
+3. Assert the results are what you expect
+
+Usually in our src/lib.rs or src/main.rs files, we'll have a test module with this syntax
+```
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2+2, 4);
+    }
+}
+```
+The ```#[test]``` attribute above the function signature indicates that this is a test function so that the test runner can treat this function as a test. 
+
+> We could also have non-test functions in the ```tests``` module to help set up common scenarios or perform common operations.
+
+The ```assert!``` macro is very useful when you want to ensure that some condition in a test evaluates to ```true```. Specifically, we provide the ```assert!``` macro with an argument that evaluates to a Boolean. If the value passed is ```true```, then nothing happens, but if it is ```false``` then the ```assert!``` macro calls the ```panic!``` macro (which then causes the test to fail).
+
+It is common to add the line ```use super::*;``` in the ```tests``` module. The ```tests``` module is a regular module (and it is an inner module) so we need to bring the code in the outer module into the scope of the inner module.
+
+A common test code pattern is to compare the result of the code under the test to the value you expect the code to return (and checking if they're equal). Although we could do this with the ```assert!``` macro, we can use the following pair of macros to test equality or inequality, respectively -- ```assert_eq!``` and ```assert_ne!```. It is useful to use the ```assert_ne!``` when you are testing state changes.
+
+For structs and enums that we define, we must implement ```PartialEq``` to assert values of those types are equal or not equal. In addition, you'd need to implement ```Debug``` to print the values when the assertion fails. Because both traits are derivable traits, we can implement them in most cases by just adding the ```#[derive(PartialEq, Debug)]``` annotation to your struct or enum definition.
+
+We cn also add the attribute ```should_panic``` to our test function. This attribute makes a test pass if the code inside the function panics; the test will fail if the code inside the function doesn't panic.
+```
+pub struct Topic {
+    score: u32,
+}
+
+impl Topic {
+    pub fn new(score: u32) -> Topic {
+        if score < 1 || score > 100 {
+            panic!("The topic score must be between 1 and 100, but we go {}", score);
+        }
+
+        Topic {
+            score
+        }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn score_over_100() {
+        Topic::new(101);
+    }
+}
+```
+We place the ```#[should_panic]``` attribute after the ```#[test]``` attribute and before the test function it applies to.
+
+Another common testing code pattern is to use ```Result<T, E>``` in tests.
+```
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() -> Result<(), String> {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from("two plus two does not equal four))
+        }
+    }
+}
+```
+
+### Running Tests <a name="runtests"></a>
+The default behavior of the binary produced by ```cargo test``` is to run all the tests in parallel and capture output generated during test runs, thereby preventing the output from being displayed and making it easier to read the output related to the test results.
+
+To pass commmand line arguments to ```cargo test```, we list the arguments that go to ```cargo test``` followed by the separator ```--``` and then the ones that go to the test binary. Running ```cargo test --help``` displayes the options you can use with ```cargo test``` and running ```cargo test -- --help``` displays the options that can be used after the separator ```--```.
+
+Sometimes it is useful to run tests consecutively instead of in parallel (especially if you're manipulating some common object and monitoring the state changes for testing reasons). In this case, we can send the ```--test-threads``` flag and the number of threads you want to use to the test binary.
+```
+cargo test -- --test-threads=1
+```
+
+By default, Rust's test library captures anything printed to standard output. To prevent this (if we're printing stuff within our test functions), we can pass the ```--nocapture``` flag:
+```
+cargo test -- --nocapture
+```
+
+We can also pass the name of any test function to ```cargo test``` to run only that test:
+```
+cargo test test_function_name
+```
+We can also filter to run multiple tests by only passing part of a test name such that any test whose name contains that value will be run.
+
+Rather than listing as arguments all tests that you don't want to run, we can annotate the time-consuming tests using the ```ignore``` attribute to exclude them. 
+```
+#[test]
+#[ignore]
+fn expensive_test() {
+    // some code that we don't want to actually test at the moment
+}
+```
+If we want to run only the ignored tests, we can use the ```--ignored``` flag
+```
+cargo test -- --ignored
+```
+
+### Unit Tests <a name="unittests"></a>
+Unit tests focus on testing one module in isolation at a time and can test private interfaces. By testing each unit of code in isolation, we can pinpoint where code is and is not working as expected. You can put unit tests in each file with the code that is being tested. The convention is to create a module named ```tests``` in each file to contain the test functions and to annotate the module with ```cfg(test)```. The attribute ```cfg``` stands for *configuration* (so it tells Rust that the following item should only be included given a certain configuration option).
+
+The ```#[cfg(test)]``` annotation on the tests module ensures that the test code only runs when you run ```cargo test```.
+
+### Integration Tests <a name="integrationtests"></a>
+Integration tests are entirely external to your library and use your code in the same that any other external code would, using only the public interface and potentially exercising multiple modules per test.
+
+To create integration tests, you set up a *tests* directory at the top level of the project directory (same level as *src/*). Because we are testing the library functionality, we must import our library into integration tests like this
+```
+extern create adder;
+
+#[test]
+fn it_adds_two() {
+    assert_eq!(4, adder::add_two(2));
+}
+```
+We do not need to annotate any code in our file with ```#[cfg(test)]```. Cargo treats the ```tests``` directory as special and compiles the files when we run ```cargo test```.
+
+To run all the tests in a particular integration test file, use the ```--test``` argument of ```cargo test``` followed by the file name. Note that we cannot run integration tests on a binary crate. Library crates expose functions that other crates can call and use while binary crates run on their own.
