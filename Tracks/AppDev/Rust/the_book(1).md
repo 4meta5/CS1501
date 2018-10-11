@@ -1,8 +1,8 @@
-# Coding Rust Cheatsheet (WIP)
+# Coding Rust Cheatsheet (1 of 2)
 
 Rust is a statically typed language, which means that it must know the types of all variables at compile time. The compiler can usually infer what type we want to use based on the value and how we use it.
 
-These are notes from [The Rust Book](https://doc.rust-lang.org/book/), but they also may draw from [Steve Donovan's Gentle Intro](https://stevedonovan.github.io/rust-gentle-intro/readme.html)
+These are notes from [The Rust Book](https://doc.rust-lang.org/book/), but they also may draw from [Steve Donovan's Gentle Intro](https://stevedonovan.github.io/rust-gentle-intro/readme.html). **These notes only cover the first 11 chapters of The Book** 
 
 ) They start from the middle of the Chapter 2 ```guessing_game``` tutorial.
 * [Guessing Game](#guess)
