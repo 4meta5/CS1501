@@ -28,6 +28,10 @@ For this lecture, we're going to blackbox identity. By doing so, we can build cr
 * [Eric Posner Blog Post](http://ericposner.com/quadratic-voting/)
 * [Voting Squared: Quadratic Voting in Democratic Politics](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2343956)
 
+**Proof**:<br>
+* [How Mechanism Design Can Radicalize Democracy](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2003531) by Weyl and Lalley
+> "The central idea of the omitted formal proof is that quadratic functions are the only ones with linear derivatives and thus the only functions where a voter buying votes equates her marginal benefit and cost at a number of votes proportional to her value."
+
 ## Harberger Tax <a name="harberger"></a>
 
 * [ETHSF Harberger Ad Board](https://devpost.com/software/harberger-ads)
