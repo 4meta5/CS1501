@@ -16,5 +16,11 @@ Start with [The Book](https://doc.rust-lang.org/book/), then [The Rust Cookbook]
 * [Recent Stanford OS Class](https://web.stanford.edu/class/cs140e/syllabus/#schedule)
 * [Some other OS Class](http://ozark.hendrix.edu/~ferrer/courses/os/)
 
+## Memory Management
+
+* [Rust Static GC](https://words.steveklabnik.com/borrow-checking-escape-analysis-and-the-generational-hypothesis)
+
 ## Parity
 * [Why Rust](https://medium.com/paritytech/why-rust-846fd3320d3f)
+* [Why We Need Web3.0]
+* [Substrate in a Nutshell]
