@@ -476,7 +476,7 @@ impl<T> Deref for MyBox<T> {
     }
 }
 ```
-The ```type Target = T;``` syntax defines an associated type for the ```Deref``` trait to use. Associated types are a slightly different way of declaring a generic parameter. The bodt of the ```deref``` method contains ```&self.0```, which ensures that ```deref``` returns a reference to the value we want to access with the ```*``` operator.
+The ```type Target = T;``` syntax defines an associated type for the ```Deref``` trait to use. Associated types are a slightly different way of declaring a generic parameter. The body of the ```deref``` method contains ```&self.0```, which ensures that ```deref``` returns a reference to the value we want to access with the ```*``` operator.
 
 > The ```deref``` method provides the compiler with the ability to take a value of any type that implements ```Deref``` and call the ```deref``` method to get a ```&``` reference that it knows how to dereference.
 
@@ -486,6 +486,82 @@ The ```type Target = T;``` syntax defines an associated type for the ```Deref```
 **Implicit Deref Coercions with Functions and Methods**<br>
 *Deref coercion* converts a reference to a type that implements ```Deref``` into a reference to a type that ```Deref``` can convert the original type into. Deref coercion occurs automatically when we pass a reference to a particular type's value as an argument to a function or method that doesn't match the parameter type in the function or method definition. A sequence of calls to the ```deref``` method converts the type we provided into the type required by the parameter.
 
+To see how deref coercion works, we can utilize the ```MyBox<T>``` type that we previously defined. 
+
+```
+// -- snip definition of MyBox<T> --
+
+fn hello(name: &str) {
+    println!("Hello, {}!", name);
+}
+
+fn main() {
+    let m = MyBox::new(String::from("Rust"));
+    hello(&m);
+}
+```
+
+Calling ```hello``` with a reference to a ```MyBox<String>``` value works because of deref coercion. Indeed, we are calling the ```hello``` function with ```&m```, a reference to a ```MyBox<String>```. Because we implemented ```Deref``` on ```MyBox<T>```, Rust can convert ```&MyBox<String>``` to ```&String``` by calling ```deref```.  Rust calls ```deref``` again to turn the ```&String``` to ```&str``` (which matches the ```hello``` function's definition).
+
+Here's how the code would work if Rust didn't implement deref coercion...ew!
+```
+fn main() {
+    let m = MyBox::new(String::from("Rust"));
+    hello(&(*m)[..]);
+}
+```
+For clarity, ```(*m)``` dereferences the ```MyBox<String>``` into a ```String```. Then the ```&``` and ```[..]``` take a string slice of the ```String``` that is equalt o the whole string to match the signature of ```hello```. 
+
+> When the ```Deref``` trait is defined for the types involved, Rust will analyze the types and use ```Deref::deref``` as many times as necessary to get a reference to match the parameter's type. 
+> Because the number of times that ```Deref::deref``` needs to be inserted is resolved at compile time, there is no runtime penalty for taking advantage of deref coercion.
+
+Rust does deref coercion when it finds types and trait implementations in three cases:
+* From ```&T``` to ```&U``` when ```T: Deref<Target=U>```
+* From ```&mut T``` to ```&mut U``` when ```T: DerefMut<Target=U>```
+* From ```&mut T``` to ```&U``` when ```T:Deref<Target=U>```
+
+While Rust will coerce a mutable reference to an immutable one, the reverse is not allowed: immutable references will never coerce to mutable references. This follows from the borrowing rules that mandates that, if you have a mutable reference, it must be the only reference to the data. The Rust compiler can't guarantee that the immutable reference (that is being converted to an immutable reference) is the only immutable reference (which would be necessary because we are instantiating an immutable reference).
+
+---
+**Running Code on Cleanup with the ```Drop``` Trait**<br>
+Implementing the ```Drop``` trait allows you to customize what happens when a value is about to go out of scope. This trait is almost always used in the context of implementing smart pointers, but it can also be used to release resources like files or network connections. ```Box<T>``` customizes ```Drop``` to deallocate the space on the heap to which the box points.
+
+> In other languages, the programmmer has to call code to free memory or resources every time they finish using an instance of a smart pointer. Conversely, in Rust, you can specify that some code must be run whenever a value goes out of scope and the compiler will insert this code automatically. This ensures against the leaking of resources.
+
+To use the ```Drop``` trait, you must implement one method named ```drop``` that takes a mutable reference to ```self```.  As an example, we'll implement a ```CustomSmartPointer``` struct whose only custom functionality is that it will print ```Dropping CustomSmartPointer!``` when the instance goes out of scope.
+
+```
+struct CustomSmartPointer {
+    data: String,
+}
+
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
+    }
+}
+
+fn main() {
+    let c = CustomSmartPointer { data: String::from("my stuff") };
+    let d = CustomSmartPointer { data: String::from("other stuff") };
+    println!("CustomSmartPointers created.");
+}
+```
+
+Rust automatically called ```drop``` for us when our instances went out of scope (calling the code specified in our implementation of the ```Drop``` trait). Variables are dropped in the reverse order of their creation (ie ```d``` is dropped before ```c```). 
+
+---
+**Dropping a Value Early with ```std::mem::drop```**<br>
+Sometimes we may want to force the ```drop``` method. An example may be if the smart pointer manages locks and we want to release the lock so other code in the same scope can acquire the lock. In this situation, Rust doesn't allow us to call the ```Drop``` trait's ```drop``` method manually; instead we have to call the ```std::memory::drop``` function provided by the standard libray if we want to force a value to be dropped before the end of its scope.
+
+Rust doesn't let us call ```drop``` explicitly because Rust would still automatically call ```drop``` on the value at the end of ```main```. This would cause a *double free error* (because Rust would be trying to clean up the same value twice). Here's an example of how we could apply ```std::mem::drop``` to explicitly drop a value before it goes out of scope. 
+
+```
+fn main() {
+    let c = CustomSmartPointer { data: String::from("some data") };
+    drop(c);
+}
+```
 
 
 ### ```Rc<T>``` <a name="rct"></a>

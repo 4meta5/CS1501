@@ -1,5 +1,7 @@
 # Why I Love Rust
 
+[Medium Article on Rust vs Go](https://medium.com/@george3d6/the-success-of-go-heralds-that-of-rust-73cb2e4c0500) -- October 13, 2018
+
 Check out more recent blog posts, etc...[lol](http://lmgtfy.com/?q=Why+I+love+Rust)
 
 * [fireflowers](https://brson.github.io/fireflowers/)
