@@ -26,5 +26,5 @@ Start with [The Book](https://doc.rust-lang.org/book/), then [The Rust Cookbook]
 
 ## Parity
 * [Why Rust](https://medium.com/paritytech/why-rust-846fd3320d3f)
-* [Why We Need Web3.0]
-* [Substrate in a Nutshell]
+* [Why We Need Web3.0](https://medium.com/@gavofyork/why-we-need-web-3-0-5da4f2bf95abs)
+* [Substrate in a Nutshell](https://www.parity.io/substrate-in-a-nutshell/)
