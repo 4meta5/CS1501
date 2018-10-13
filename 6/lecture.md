@@ -6,6 +6,7 @@ Check out more recent blog posts, etc...[lol](http://lmgtfy.com/?q=Why+I+love+Ru
 
 * [fireflowers](https://brson.github.io/fireflowers/)
 * [Excerpts From: Rust Types for Solid Safety](https://web.stanford.edu/class/cs140e/notes/lec2/paper.pdf)
+* [Julia Evans: Why I <3 Rust](https://jvns.ca/blog/2016/01/10/why-i-rust/)
 
 ## Learning Rust
 > Taken from [thePGoat](https://github.com/thePGoat/madamePsychosis)

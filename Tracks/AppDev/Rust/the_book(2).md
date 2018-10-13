@@ -563,8 +563,12 @@ fn main() {
 }
 ```
 
+### ```Rc<T>```, The Reference Counted Smart Pointer <a name="rct"></a>
+To enable multiple ownership, Rust has a type called ```Rc<T>``` (which is an abbreviation for *reference counting*). The ```Rc<T>``` type keeps track of the number of references to a value to determine whether or not the value is still in use. We use ```Rc<T>``` when we want to allocate some data on the heap for multiple parts of our program to read and can't determine at compile time which part will finish using the data last.
 
-### ```Rc<T>``` <a name="rct"></a>
+> ```Rc<T>``` is only for use in single-threaded scenarios.
+
+
 
 ### ```Ref<T>``` <a name="reft"></a>
 
