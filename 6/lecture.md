@@ -18,6 +18,8 @@ Start with [The Book](https://doc.rust-lang.org/book/), then [The Rust Cookbook]
 * [Recent Stanford OS Class](https://web.stanford.edu/class/cs140e/syllabus/#schedule)
 * [Some other OS Class](http://ozark.hendrix.edu/~ferrer/courses/os/)
 
+> I've organized my own Rust notes [here](https://github.com/AmarRSingh/CS1501/tree/master/Tracks/AppDev/Rust).
+
 ## Memory Management
 
 * [Rust Static GC](https://words.steveklabnik.com/borrow-checking-escape-analysis-and-the-generational-hypothesis)
