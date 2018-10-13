@@ -353,3 +353,143 @@ This section may be more useful in the future and, at that point in time, I can 
 All binaries installed with ```cargo install``` are stored in the installation root’s *bin* folder. If you installed Rust using *rustup.rs* and don’t have any custom configurations, this directory will be *$HOME/.cargo/bin*. Ensure that directory is in your ```$PATH``` to be able to run programs you’ve installed with ```cargo install```.
 
 ## Smart Pointers <a name="smartpointers"></a>
+*Smart Pointers* are data structures that act as pointers while also maintaining additional metadata and capabilities. While references are pointers that only borrow data, smart pointers *own* the data they point to. Examples of smart pointers already covered include ```String``` and ```Vec<T>``` (because they own some memory and allow you to manipulate it). In addition, both of these types have metadata (ie their capacity) as well as extra capabilities and guarantees (ie ```String``` ensures that it will always be valid UTF-8).
+
+Generally, smart pointers are implemented using structs that implement the ```Deref``` and ```Drop``` traits. The ```Deref``` trait enables an instance of the smart pointer to behave as a reference, which allows code that works with either references or smart pointers. On the other hand, ```Drop``` trait allows you to customize the code that is run when an instance of the smart pointer goes out of scope.
+
+Most common smart pointers in the standard library: <br>
+* [```Box<T>```](#boxt) for allocating values on the heap 
+* [```Rc<T>```](#rct), which is a reference counting type that enables multiple ownership
+* [```Ref<T>```](#reft) and ```RefMut<T>``` (accessed through ```RefCell<T>```), a type that enforces the borrowing rules at runtime instead of compile time.
+
+> *interior mutability pattern* such that an immutable type exposes an API for mutating an interior value
+
+> *reference cycles*: how they can leak memory and how to prevent them
+
+### Using ```Box<T>``` to Point to Data on the Heap <a name="boxt"></a>
+Boxes (denoted as type ```Box<T>```) allow you to store data on the heap rather than the stack. Even so, the pointer to the heap data is stored on the stack. For this reason, boxes don't have performance overhead (other than storing their data on the heap instead of on the stack). Examples of common use cases:
+* When you have a type whose size can't be known at compile time and you want to use a value of that type in a context that requires an exact size
+* When you have a large amount of data and you want to transfer ownership but ensure the data won't be copied
+* When you want to own a value and you care only that it is a type that implements a specific trait instead of being a particular type
+
+```
+fn main() {
+    let b = Box::new(5);
+    println!("b = {}", b);
+}
+```
+Here we store an ```i32``` value on the heap using a box. The program prints ```b = 5``` (so we can access the data in the box similar to how we would if this data were on the stack). Similar to owned values, when a box goes out of scope, it is deallocated (both for the box stored on the stack and the data it points to on the heap).
+
+---
+**Enabling Recursive Types with Boxes**<br>
+At compile time, Rust must know how much space a type takes up, but this doesn't work for *recursive types* (ie where a value can have as part of itself another value of the same type). This nesting of values makes it impossible for Rust to effectively allocate space. Even so, boxes have a known size so we can insert a box in a recursive type definition to enable recursive types.
+
+**Cons List**<br>
+A *cons list* is a data structure from Lisp. The cons function is used the following context: "to cons *x* onto *y*", which means to construct a new container instance by putting the element *x* at the start of this new container, followed by the container *y*.  Each item in a cons list contains two elements: the value of the current item and the next item. The last item in the list contains only a ```Nil``` value without any next item. 
+
+To demonstrate what Boxes can do, we'll implement a cons list that holds only ```i32``` values. 
+
+```
+enum List {
+    Cons(i32, List),
+    Nil
+}
+
+use List::{Const, Nil};
+
+fn main() {
+    let list = Cons(1, Cons(2, Cons(3, Nil)));
+}
+```
+**This won't compile** because there's no indication of how much space is required to store a ```List``` variant that is recursive (because it holds another value of itself directly). Instead, we can use ```Box<T>``` to get a recursive type with a known size. 
+
+Rust knows how much space is necessary to store a ```Box<T>``` because this is just a pointer to data stored in the heap (and a pointer's size doesn't change based on the data that it's pointing to). To fix our code, we can put a ```Box<T>``` inside our ```Cons``` variant (instead of another ```List``` value directly). The ```Box<T>``` pints to the next ```List``` value that will be on the heap rather than inside the ```Cons``` variant. 
+
+```
+enum List {
+    Cons(i32, Box<List>),
+    Nil,
+}
+
+use List::{Cons, Nil};
+
+fn main() {
+    let list = Cons(1,
+        Box::new(Cons(2,
+            Box::new(Cons(3, 
+                Box::new(Nil))))));
+}
+```
+
+This ```Cons``` variant requires the size of an ```i32``` as well as the space required to store the box's pointer data. Because the ```Nil``` variant doesn't store any values, it needs less space than the ```Cons``` variant. This tells us that any ```List``` value will take up the size of an ```i32``` as well as the size of a box's pointer data.
+
+> Boxes only provide the indirection and box allocation (so they don't have any other special capabilities like those of other smart pointer types). Likewise, they don't have the performance overhead incurred by the special capabilities of other smart pointer types. 
+
+When a ```Box<T>``` value goes out of scope, the heap data that the box is pointing to is cleaned up because of the ```Drop``` trait implementation. ```Box<T>``` is treated like a reference because it implements the ```Deref``` trait.
+
+---
+**Treating Smart Pointers like Regular References with the ```Deref``` Trait**<br>
+We can customize the behavior of the *dereference operator*, ```*```, by implementing the ```Deref``` trait. Specifically, implementing this trait makes it possible for smart pointers to work in a similar way as references. 
+
+```
+fn main() {
+    let x = 5;
+    let y = &x;
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+```
+This is the syntax of using a dereference operator to follow a reference to an ```i32``` value. Without the dereference operator, we would get a compiler error that tells us that we can't compare a reference to an integer.
+
+We can rewrite this code with ```Box<T>``` instead of reference. 
+
+```
+fn main() {
+    let x = 5;
+    let y = Box::new(x);
+    
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+```
+We can use the dereference operator to follow the box's pointer in the same way that we did when ```y``` was a reference. The only difference with this code is that ```y``` is set to be an instance of a box pointing to the value in ```x``` (instead of a reference pointing to the value of ```x```).
+
+---
+**Defining Our Own Smart Pointer**<br>
+
+```
+struct MyBox<T>(T);
+
+impl<T> MyBox<T> {
+    fn new(x: T) -> MyBox<T> {
+        MyBox(x)
+    }
+}
+
+use std::ops::Deref;
+
+impl<T> Deref for MyBox<T> {
+    type Target = T;
+
+    fn deref(&self) -> &T {
+        &self.0
+    }
+}
+```
+The ```type Target = T;``` syntax defines an associated type for the ```Deref``` trait to use. Associated types are a slightly different way of declaring a generic parameter. The bodt of the ```deref``` method contains ```&self.0```, which ensures that ```deref``` returns a reference to the value we want to access with the ```*``` operator.
+
+> The ```deref``` method provides the compiler with the ability to take a value of any type that implements ```Deref``` and call the ```deref``` method to get a ```&``` reference that it knows how to dereference.
+
+> When we entered ```*y``` in the above code, Rust actually runs this code behind the scenes: ```*(y.deref())```. Specifically, Rust substitutes the ```*``` operator with a call to the ```deref``` method, and then a plain dereference so that we don't have to consider whether or not we need to call the ```deref``` method. 
+
+---
+**Implicit Deref Coercions with Functions and Methods**<br>
+*Deref coercion* converts a reference to a type that implements ```Deref``` into a reference to a type that ```Deref``` can convert the original type into. Deref coercion occurs automatically when we pass a reference to a particular type's value as an argument to a function or method that doesn't match the parameter type in the function or method definition. A sequence of calls to the ```deref``` method converts the type we provided into the type required by the parameter.
+
+
+
+### ```Rc<T>``` <a name="rct"></a>
+
+### ```Ref<T>``` <a name="reft"></a>
+
+
