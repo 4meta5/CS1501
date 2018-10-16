@@ -1,4 +1,4 @@
-# Coding Rust Cheatsheet (2 of 2)
+# Coding Rust Cheatsheet (2 of 3)
 
 Rust is a statically typed language, which means that it must know the types of all variables at compile time. The compiler can usually infer what type we want to use based on the value and how we use it.
 
@@ -14,6 +14,10 @@ These are notes from [The Rust Book](https://doc.rust-lang.org/book/), but they 
     * [```Rc<T>```](#rct)
     * [```Ref<T>```](#reft)
 * [Concurrency](#concurrency)
+    * [Threads](#threads)
+    * [Message Passing](#messagepassing)
+    * [Shared State](#sharedstate)
+    * [Sync and Send](#syncsend)
 
 ## Closures: Anonymous Functions that Capture the Environment <a name="closure"></a>
 Rust's closures are anonymous functions that you can store in a variable or pass as arguments to other functions. Closures capture values from  the scope in which they're called, enabling code reuse and behavior customization.
@@ -907,3 +911,176 @@ If we try to access the parent of ```leaf``` after the end of the scope, we'll g
 * The ```RefCell<T>``` type (via its interior mutability) gives us a type that we can use when we need an immutable type but need to change an inner value of that type; it also enforces the borrowing rules at runtime instead of compile time.
 
 ## Concurrency <a name="concurrency"></a>
+*Concurrent programming* is when different parts of the program execute independently. *Parallel programming* is where different parts of the program execute at the same time. As computers take advantage of multiple processors, Rust strives to enable **fearless concurrency**.
+
+* [Threads](#threads)
+* [Message Passing](#messagepassing)
+* [Shared State](#sharedstate)
+* [Sync and Send](#syncsend)
+
+## Using Threads to Run Code Simultaneously <a name="threads></a>
+Splitting computation into multiple threads can improve performance, but it also adds complexity. Because threads can run simultaneously, there's no inherent guarantee about the order in which threads execute. This can lead to the follwoing problems
+* **Race conditions**: threads are accessing data or resources in an inconsistent order
+* **Deadlocks**: two threads are waiting for each other to finish using a resource the other thread has, preventing both threads from continuing
+
+Many operating systems provide an API for creating new threads. The model where a language calls the operating system APIs to create threads is referred to as *1:1*, indicating one operating system thread per one language thread. Conversely, some programming languages use *green threads*, which execute in the context of a different number of OS threads. The green-threaded model is called the *M:N* model: there are ```M``` green threads per ```N``` OS threads. 
+
+For Rust, the runtime support is considered to be significant. *Runtime* in this context refers to the code that is included by the language in every binary. The code can be large or small depending on the language, but every non-assembly language has some amount of runtime code. Smaller runtimes have fewer features but have the advantage of resulting in smaller binaries. Although some languages are willing to increase runtime size in exchange for more features, Rust aims to have nearly no runtime; this ensures that it does not compromise on being able to call into C to maintain performance.
+
+> The green-threading M:N model requires a larger language runtime to maintain threads. With this in mind, the Rust standard library only provides an implementation of 1:1 threading. There are crates that implement M:N threading (but these inherently trade overhead for aspects such as more control over which threads run when and lower costs of context switching).
+
+---
+**Creating a New Thread with ```spawn```**<br>
+To create a new thread, we call the ```thread::spawn``` function and pass it a closure containing the code we want to run in the new thread.
+
+```
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+    thread::spawn(|| {
+        for i in 1..10 {
+            println!("hi number {} from the spawned thread!", i);
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
+    for i in 1..5 {
+        println!("hi number {} from the main thread!", i);
+        thread::sleep(Duration::from_millis(1));
+    }
+}
+```
+The output of this program looks like, but it might be slightly different every time! This is because it depends on how the OS schedules the threads. 
+```
+hi number 1 from the main thread!
+hi number 1 from the spawned thread!
+hi number 2 from the main thread!
+hi number 2 from the spawned thread!
+hi number 3 from the main thread!
+hi number 3 from the spawned thread!
+hi number 4 from the main thread!
+hi number 4 from the spawned thread!
+hi number 5 from the spawned thread!
+```
+The new thread is stopped when the main thread ends!
+
+**Waiting for All Threads to Finish Using ```join``` Handles**<br>
+We can fix the problem of the spawned thread not getting to run completely by saving the return value of ```thread::spawn``` in a variable. The return type of ```thread::spawn``` is ```JoinHandle```. A ```JoinHandle``` is an owned value that, when we call the ```join``` method on it, will wait for its thread to finish. Here's how to use this:
+
+```
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+    let handle = thread::spawn( || {
+        for i in 1..10 {
+            println!("hi number {} from the spawned thread!", i);
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
+
+    for i in 1..5 {
+        println!("hi number {} from the main thread!", i);
+        thread::sleep(Duration::from_millis(1));
+    }
+
+    handle.join().unwrap();
+}
+```
+Calling ```join``` on the handle blocks the thread currently running until the thread represented by the handle terminates. *Blocking* a thread means that the thread is prevented from performing work or exiting. Here's the output:
+```
+hi number 1 from the main thread!
+hi number 2 from the main thread!
+hi number 1 from the spawned thread!
+hi number 3 from the main thread!
+hi number 2 from the spawned thread!
+hi number 4 from the main thread!
+hi number 3 from the spawned thread!
+hi number 4 from the spawned thread!
+hi number 5 from the spawned thread!
+hi number 6 from the spawned thread!
+hi number 7 from the spawned thread!
+hi number 8 from the spawned thread!
+hi number 9 from the spawned thread!
+```
+The two threads continue alternating, but the main thread waits because of the call to ```handle.join()``` and does not end until the spawned thread is finished. If we had instead placed ```handle.join().unwrap()``` before the ```for``` loop in ```main```, then the main thread would wait for the spawned thread to finish before running its ```for``` loop. This illustrates the significance of where ```join``` is called.
+
+**Using ```move``` Closures with Threads**<br>
+When used alongside ```thread::spawn```, the ```move``` closure allows you to use data from one thread in another thread.
+
+> Remember that we can use the ```move``` keyword before the parameter list of a closure to force the closure to take ownership of the values it uses in the environment. 
+
+This technique is very useful when creating new threads in order to transfer ownership of values from one thread to another. Specifically, to use data from the main thread in the spawned thread, the spawned thread's closure must capture the values it needs. By adding the ```move``` keyword before the closure, we force the closure to take ownnership of values it's using rather than allowing Rust to infer that it should borrow the values (if we don't do this, we'll get a compiler error).
+
+```
+use std::thread;'
+
+fn main() {
+    let v = vec![1, 2, 3];
+
+    let handle = thread::spawn(move || {
+        println!("Here's a vector: {:?}", v);
+    });
+
+    handle.join().unwrap();
+}
+```
+By telling Rust to move ownership of ```v``` to the spawned thread, we're guaranteeing Rust that that the main thread won't use ```v``` anymore. The ```move``` keyword overrides Rust's conservative default of borrowing; it doesn't let us violate the ownership rules.
+
+### Using Message Passing to Transfer Data Between Threads <a name="messagepassing"></a>
+An increasingly popular approach to ensure safe concurrency is *message passing*, where threads or actors communicate by sending each other messages containing data.
+
+> Slogan from Golang documentation: "Do not communicate by sharing memory; instead, share memory by communicating."
+
+The major tool utilized by Rust for accomplishing message-sending concurrency is the *channel* (which is implemented by Rust's standard library). A channel has two halves: a transmitter and a receiver. One part of your code calls methods on the transmitter with the data you want to send, and another part checks the receiving end for arriving messages. A channel is said to be *closed* if either the transmitter or receiver half is dropped.
+
+Here's the syntax for creating a channel, but it won't compile because Rust can't tell which type of values we want to send over the channel.
+
+```
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+}
+```
+
+We create a new channel using the ```mpsc::channel``` function. ```mpsc``` stands for *multiple producer, single consumer*. The way Rust's standard library implements channels means a channel can have multiple sending ends that produce values but only one *receiving* end that consumes those values. 
+
+```mpsc:channel``` function returns a tuple, the first element of which is the sending end and the second element is the receiving end. The abbreviatons ```tx``` and ```rx``` are traditionally used in many fields for *transmitter* and *receiver* respectively. We're using a ```let``` statement with a pattern that destructures the tuples. 
+
+Next, we'll move the transmitting end into a spawned thread and have it send one string so the spawned thread is communicating with the main thread. We also get the value from the receiving end of the channel in the main thread.
+
+```
+use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let val = String::from("hi");
+        tx.send(val).unwrap();
+    });
+
+    let received = rx.recv().unwrap();
+    println!("Got: {}", received);
+}
+```
+We're using the ```thread::spawn``` to create a new thread and then using ```move``` to move ```tx``` into the closure so the spawned thread owns ```tx```. The spawned thread needs to own the transmitting end of the channel to be able to send messages through the channel.
+
+The transmitting end has a ```send``` method that takes the value we want to send. The ```send``` method returns a ```Result<T, E>```, so if the receiving end has already been dropped and there's nowhere to send a value, the send operation will return an error.
+
+> We use ```unwrap``` here to panic in case of an error, but we're hip to better error handling strategies.
+
+The receiving end of a channel has two useful methods: ```recv``` and ```try_recv```. We're using ```recv```, short for receive, which will block the main's thread execution and wait until a value is sent down the channel. Once a value is sent, ```recv``` will return it in a ```Result<T, E>```. When the sending end of the channel closes, ```recv``` returns an error to signal that no more values will be coming.
+
+The ```try_recv``` method doesn't block, but will instead return a ```Result<T, E>``` immediately: an ```Ok``` value holding a message if one is available and an ```Err``` value if there aren't any messages this time. Using ```try_recv``` is useful if this thread has other work to do while waiting for messages: we could write a loop that calls ```try_recv``` every so often, handles a message if one is available, and otherwise does other work for a little while until checking again.
+
+This is our code's output:
+
+```
+Got: hi
+```
+
+**Channels and Ownership Transference**<br>
+
