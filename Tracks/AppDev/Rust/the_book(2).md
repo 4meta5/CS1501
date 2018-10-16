@@ -918,7 +918,7 @@ If we try to access the parent of ```leaf``` after the end of the scope, we'll g
 * [Shared State](#sharedstate)
 * [Sync and Send](#syncsend)
 
-## Using Threads to Run Code Simultaneously <a name="threads></a>
+### Using Threads to Run Code Simultaneously <a name="threads></a>
 Splitting computation into multiple threads can improve performance, but it also adds complexity. Because threads can run simultaneously, there's no inherent guarantee about the order in which threads execute. This can lead to the follwoing problems
 * **Race conditions**: threads are accessing data or resources in an inconsistent order
 * **Deadlocks**: two threads are waiting for each other to finish using a resource the other thread has, preventing both threads from continuing
@@ -1083,4 +1083,192 @@ Got: hi
 ```
 
 **Channels and Ownership Transference**<br>
+> It is important to note that the transmitting end's ```send``` function takes ownership of its parameter, and, when the value is moved, the received takes ownership of it. This prevents us from accidentally using the value again after sending it!
+
+Now we'll write some code so that the spawned thread sends multiple messages and pauses for a second between each message. 
+
+```
+use std::thread;
+use std::sync::mpsc;
+use std::time::Duration;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let vals = vec![
+            String::from("don't"),
+            String::from("have"),
+            String::from("haters"),
+            String::from("only"),
+            String::from("fans"),
+            String::from("in"),
+            String::from("denial"),
+        ];
+
+        for val in vals {
+            tx.send(val).unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
+    });
+
+    for received in rx {
+        println!("Got: {}", received);
+    }
+}
+```
+The spawned thread has a vector of strings that we want to send to the main thread. We iterate over them, sending each on individually, and pause between each.
+
+In the main thread, we're not calling the ```recv``` function explicitly. Instead, we're treating ```rx``` as an iterator such that for each value received, we print it. When the channel closes, the iteration ends. Our output is exactly what you'd expect.
+
+**Creating Multiple Producers by Cloning the Transmitter**<br>
+We'll create multiple threads that all send values to the same receiver. We can do so y cloning the transmitting half of the channel.
+
+```
+// --snip--
+let (tx, rx) = mpsc::channel();
+
+let tx1 = mpsc::Sender::clone(&tx);
+thread::spawn(move || {
+    let vals = vec![
+        String::from("don't"),
+        String::from("have"),
+        String::from("haters"),
+    ];
+
+    for val in vals {
+        tx1.send(val).unwrap();
+        thread::sleep(Duration::from_secs(1));
+    }
+});
+
+thread::spawn(move || {
+    let vals = vec![
+        String::from("only"),
+        String::from("fans"),
+        String::from("in"),
+        String::from("denial");
+    ];
+
+    for val in vals {
+        tx.send(val).unwrap();
+        thread::sleep(Duration::from_secs(1));
+    }
+});
+
+for received in rx {
+    println!("Got: {}", received);
+}
+
+// --snip--
+```
+This shows how we can send multiple messages from multiple producers. Before we create the first spawned thread, we call ```clone``` on the sending end of the channel. This enables us to pass a new sending handle to the first spawned thread. We pass the original sending end of the channel to a second spawned thread. This code pattern provides two threads, each sending different messages to the receiving end of the channel.
+
+### Shared-State Concurrency <a name="sharedstate"></a>
+> Another slogan from the Go language documentation: "communicate by sharing memory"
+
+Channels are similar to single ownership, because once you transfer a value down a channel, you should no longer use that value. Shared memory concurrency is like multiple ownership: multiple threads can access the same memory location at the same time. 
+
+**Using Mutexes to Allow Access to Data from One Thread at a Time**<br>
+*Mutex* is an abbreviation for *mutual exclusion*; a mutex allows only one thread to accesss some data at a given time. To access the data in a mutex, a thread must first sigmal that it wants access by asking to acquire the mutex's *lock*. The lock is a data structure that is part of the mutex that keeps track of who currently has exclusive access to the data. 
+
+> the mutex is described as *guarding* the data it holds via the locking system
+
+To use mutexes, you have to remember two rules:
+* you must attempt to acquire the lock before using the data
+* when you're done with the data that the mutex guards, you must unlock the data so other threads can acquire the lock
+
+Because of Rust's type system and ownership rules, you can't get locking and unlocking wrong.
+
+**The API of ```Mutex<T>```**
+In a single threaded context, here's the syntax for using a mutex
+```
+use std::sync::Mutex;
+
+fn main() {
+    let m = Mutex::new(5);
+
+    {
+        let mut num = m.lock().unwrap();
+        *num = 6;
+    }
+
+    println!("m = {:?}", m);
+}
+```
+We create a ```Mutex<T>``` using the associated function ```new```. To access data in the mutex, we use the ```lock``` method to acquire the lock. This lock will block the current thread so it can't do any work until it's our turn to have the lock.
+
+> The call to ```lock``` would fail if another thread holding the lock panicked. In that case, no one would ever be able to get the lock, so we've chosen to ```unwrap``` and have this thread panic if we're in that situation.
+
+After we've acquired the lock, we can treat the return value (named ```num```) as a mutable reference to the data inside. The type system ensures that we acquire a lock before using the value in ```m```: ```Mutex<i32>``` is not an ```i32```, so we must acquire the lock to be able to use the ```i32``` value. Indeed, the type system won't let us access the inner ```i32``` otherwise.
+
+> ```Mutex<T>``` is a smart pointer. More accurately, the call to ```lock``` returns a smart pointer called ```MutexGuard```. This smart pointer implements ```Deref``` to point at our inner data; the smart pointer also has a ```Drop``` implementation that releases the lock automatically when a ```MutexGuard``` goes out of scope (which occurs at the end of the inner scope). 
+
+After the lock is dropped, we print the mutex value and see that we were able to change the inner ```i32``` to 6. Output:
+```
+m  = 6
+```
+
+**Multiple Ownership with Multiple Threads**<br>
+> ```Rc<T>``` is not safe to share across threads. When ```Rc<T>``` manages the reference count, it adds to the count for each call to ```clone``` and subtract from the count when each clone is dropped. But it does not use concurrency primitives to ensure that changes to the count can't be interrupted by another thread. 
+
+Instead, we need a type exactly like ```Rc<T>``` that makes changes to the reference count in a thread-safe way!
+
+**Atomic Reference Counting with ```Arc<T>```**<br>
+```Arc<T>``` is a type like ```Rc<T>``` that is safe to use in concurrent situations. The *a* stands for *atomic*, meaning it's an *atomically reference counted* type. Atomics work like primitive types but are safe to share across threads.
+
+> thread safety comes with a performance penalty that you only want to pay when you really need to. If you're just performing operations on values within a single thread, your code can run faster if it does not have to enforce the guarantees atomic provide.
+
+Here's some syntax as an example:
+
+```
+use std::synx::{Mutex, Arc};
+use std::thread;
+
+fn main() {
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&clone);
+        let handle = spread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+
+            *num += 1;
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("Result: {}", *counter.lock().unwrap());
+}
+```
+We use ```Arc<T>``` to wrap the ```Mutex<T>``` to be able to share ownership across multiple threads.
+
+The output is: 
+```
+Result: 10
+```
+
+> ```Mutex<T>``` provides interior mutability similar to the ```Cell``` family. In the same way that we use ```RefCell<T>``` to mutate contents inside an ```Rc<T>```, we use ```Mutex<T>``` to mutate contents inside an ```Arc<T>```.
+
+Note that ```Mutex<T>``` comes with the risk of creating *deadlocks*. These occur when an operation needs to lock two resources and two threads have acquired one of the locks, causing them to wait for each other forever (similar to how ```Rc<T>``` can create reference cycles). 
+
+### Extensible Concurrency with the ```Sync``` and ```Send``` Traits <a name = "syncsend"></a>
+Two concurrency concepts are embedded in the language: the ```std::marker``` traits ```Sync``` and ```Send```.
+
+The ```Send``` marker trait indicates that ownership of the type implementing ```Send``` can be transferred between threads. Almost every Rust type is ```Send```, but there are some exceptions, including ```Rc<T>``` (it can't be ```Send``` because if you cloned an ```Rc<T>``` and tried to transfer ownership of the clone to another thread, both threads might update the reference count at the same time). Likewise, Rust's type system and trait bounds ensure that you can never accidentally send an ```Rc<T>``` value across threads unsafely.
+
+> Any type composed entirely of ```Send``` types is automatically marked as ```Send```. Almost all primitive types are ```Send```, except raw pointers which we'll discuss later
+
+The ```Sync``` marker trait indicates that it is safe for the type implementing ```Sync``` to be referenced from multiple threads. Any type ```T``` is ```Sync``` as long as ```&T``` is ```Send``` (ie the reference can be safely sent to another thread). Primitive types are ```Sync``` and types composed entirely of types that are ```Sync``` are also ```Sync```.
+
+> ```Rc<T>``` is also not ```Sync``` (for the same reason, it's not ```Send```). The ```RefCell<T>``` type and the family of related ```Cell<T>``` types are not ```Sync``` because the implementation of borrow checking that ```RefCell<T>``` does at runtime isn't thread-safe.
+
+> The smart pointer ```Mutex<T>``` is ```Sync``` and can be used to share access with multiple threads.
+
+**Implementing ```Send``` and ```Sync``` Manually is Unsafe** (check out The Rustonomicon for more details)
 
