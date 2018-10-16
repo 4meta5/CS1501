@@ -1271,4 +1271,3 @@ The ```Sync``` marker trait indicates that it is safe for the type implementing 
 > The smart pointer ```Mutex<T>``` is ```Sync``` and can be used to share access with multiple threads.
 
 **Implementing ```Send``` and ```Sync``` Manually is Unsafe** (check out The Rustonomicon for more details)
-
