@@ -4,6 +4,7 @@ This lecture may need to be split into two parts. First, I want to introduce the
 
 * [Why I Love Rust](#rust)
     * [Memory Management](#safety)
+    * [Culture](#culture)
 * [Parity](#parity)
 
 ## Why I Love Rust <a name="rust"></a>
@@ -34,6 +35,11 @@ Start with [The Book](https://doc.rust-lang.org/book/), then [The Rust Cookbook]
 
 * [Excerpts From: Rust Types for Solid Safety](https://web.stanford.edu/class/cs140e/notes/lec2/paper.pdf)
 * [Rust Static Garbage Collection](https://words.steveklabnik.com/borrow-checking-escape-analysis-and-the-generational-hypothesis)
+
+### Culture <a name="culture"></a>
+
+* [Rust's Code of Conduct](https://www.rust-lang.org/en-US/conduct.html)
+* [aturon.log: listening and trust, part 2](http://aturon.github.io/2018/06/02/listening-part-2/)
 
 ## Parity <a name="parity"><a/>
 
