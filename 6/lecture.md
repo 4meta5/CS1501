@@ -2,6 +2,10 @@
 
 This lecture may need to be split into two parts. First, I want to introduce the Rust programming language. Then, I want to discuss the Parity team, the Substrate blockchain framework, and the Polkadot network.
 
+* [Why I Love Rust](#rust)
+    * [Memory Management](#safety)
+* [Parity](#parity)
+
 ## Why I Love Rust <a name="rust"></a>
 
 * [Using Rust for an Undergraduate OS Course](http://rust-class.org/pages/using-rust-for-an-undergraduate-os-course.html) by Professor [David Evans](https://www.cs.virginia.edu/~evans/) (the supervisor of this course!)
@@ -31,7 +35,7 @@ Start with [The Book](https://doc.rust-lang.org/book/), then [The Rust Cookbook]
 * [Excerpts From: Rust Types for Solid Safety](https://web.stanford.edu/class/cs140e/notes/lec2/paper.pdf)
 * [Rust Static Garbage Collection](https://words.steveklabnik.com/borrow-checking-escape-analysis-and-the-generational-hypothesis)
 
-## Parity
+## Parity <a name="parity"><a/>
 
 * [Zero Knowledge Podcast](https://www.zeroknowledge.fm/46) -- recent interview with Gavin Would
 
