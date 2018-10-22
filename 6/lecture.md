@@ -1,11 +1,10 @@
-# Using Rust at Parity to Build Substrate to Build Polkadot
+# Rust
 
-This lecture may need to be split into two parts. First, I want to introduce the Rust programming language. Then, I want to discuss the Parity team, the Substrate blockchain framework, and the Polkadot network.
+This lecture may need to be split into two parts. First, I want to introduce the Rust programming language. Then, I want to discuss the Parity team, the Substrate blockchain framework, and the Polkadot network (this was moved to next week's lecture [7](../7/lecture.md)).
 
 * [Why I Love Rust](#rust)
     * [Memory Management](#safety)
     * [Culture](#culture)
-* [Parity](#parity)
 
 ## Why I Love Rust <a name="rust"></a>
 
@@ -41,31 +40,3 @@ Start with [The Book](https://doc.rust-lang.org/book/), then [The Rust Cookbook]
 
 * [Rust's Code of Conduct](https://www.rust-lang.org/en-US/conduct.html)
 * [aturon.log: listening and trust, part 2](http://aturon.github.io/2018/06/02/listening-part-2/)
-
-## Parity <a name="parity"><a/>
-
-* [Zero Knowledge Podcast](https://www.zeroknowledge.fm/46) -- recent interview with Gavin Would
-
-> started as ETHcore team led by Gavin Would
-
-> had ideas on how to build a heterogeneous sharding framework, but progress was too slow on Ethereum
-
-> 99% fault tolerance article by Vitalik; we use multiple actors to increase fault tolerance; this isn't novel, it was already discovered by others
-
-Four roles:
-* validators
-* nominators
-* collators
-* fishermen
-
-Revised model:
-* validators (&& nominators)
-    -> sit on relay chain (central chain <-> beacon chain)
-relay chain is like a neutral third party that keeps the parachain honest according to its protocol (security comes from relay chain)
-* collators (&& fishermen)
-    -> sit on parachain, looks for new blocks on parachain (a shard)
-
-
-* [Why Rust](https://medium.com/paritytech/why-rust-846fd3320d3f)
-* [Why We Need Web3.0](https://medium.com/@gavofyork/why-we-need-web-3-0-5da4f2bf95abs)
-* [Substrate in a Nutshell](https://www.parity.io/substrate-in-a-nutshell/)
