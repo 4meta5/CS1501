@@ -7,7 +7,11 @@ This is the second part of a two part series on using Rust at Parity to Build Su
 
 ## WASM <a name ="wasm"></a>
 
+* [A cartoon intro to WebAssembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
 * [What is WebAssembly](https://developer.mozilla.org/en-US/docs/Learn)
+
+* [What makes WebAssembly fast?](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/)
+* [Creating and Working with WebAssembly modules](https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/)
 
 ## Parity <a name="parity"><a/>
 
