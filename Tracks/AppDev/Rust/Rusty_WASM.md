@@ -72,4 +72,4 @@ npm link wasm-game-of-life
 Within ```www/```, we run ```npm run start``` in another terminal and the site will be served at ```htttp://localhost:8080/```.
 
 ### Interfacing Rust and JavaScript
-JavaScript's garbage-collected heap is distinct from WebAssembly's linear memory space (which is where the Rust values live). 
+JavaScript's garbage-collected heap is distinct from WebAssembly's linear memory space (which is where the Rust values live). Although WebAssembly currently has no direct access to the garbage-collected heap, JavaScript can read and write to the WebAssembly linear memory space (but only as an ```ArrayBuffer```); likewise, WebAssembly functions also take and return scalar values. 
