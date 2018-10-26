@@ -8,6 +8,10 @@ This is the second part of a two part series on using Rust at Parity to Build Su
 ## WASM <a name ="wasm"></a>
 
 * [A cartoon intro to WebAssembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
+
+> Related historic presentation (relevant to JIT => server-side JavaScript via Node.js): [Original Node.js presentation](https://www.youtube.com/watch?v=ztspvPYybIY) by Ryan Dahl
+> [JavaScript Engine History](https://en.wikipedia.org/wiki/JavaScript_engine)
+
 * [What is WebAssembly](https://developer.mozilla.org/en-US/docs/Learn)
 
 * [What makes WebAssembly fast?](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/)
