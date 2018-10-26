@@ -13,7 +13,15 @@ This is the second part of a two part series on using Rust at Parity to Build Su
 * [What makes WebAssembly fast?](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/)
 * [Creating and Working with WebAssembly modules](https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/)
 
+> Video: [wasm and death of javascript](https://github.com/paritytech/xpremtinel)
+
+> Paper: [Bringing the Web up to Speed with WebAssembly](https://github.com/paritytech/xpremtinel)
+
 ## Parity <a name="parity"><a/>
+
+> awesome [Edcon ppt](https://edcon.io/assets/ppt/5.4/5.4main/5.4pm/Gavin%20wood-Substrate's%20Democracy%20Starting%20the%20Conversation%20for%20On-chain%20Governance.pdf)
+
+* [WebAssembly & The Future of Blockchain Computing](https://medium.com/zkcapital/webassembly-the-future-of-blockchain-computing-1a0ae28f7e40)
 
 * [Zero Knowledge Podcast](https://www.zeroknowledge.fm/46) -- recent interview with Gavin Would
 
