@@ -2,6 +2,7 @@
 * [Writing to a File](#fileWrite)
 * [Enums and Structs](#es)
 * [Unique Type Validation](#validation)
+* [Recursive Data Types](#recursive)
 
 
 ## Writing to a File <a name="fileWrite"></a>
@@ -41,3 +42,26 @@ enum BlockchainConsensus {
 ```
 
 ## Unique Type Validation <a name="validation"></a>
+
+> Use new method on a struct (or whatever the type is)
+
+
+## Recursive Data Types <a name="recursive"></a>
+
+```Box<T>``` provides the simplest form of heap allocation in Rust. When the given object goes out of scope, ```Drop``` is called to deallocated the memory. We use this on recursive data types because it helps manage their lifetimes.
+
+For example, a recursive list type is difficult in Rust because we must know how much space to allocate for the list (and therefore we must know the size). By using Rust, we can dynamically allocate memory in a relatively safe way.
+
+```
+#[derive(Debug)]
+enum List<T> {
+    Cons(T, Box<List<T>>),
+    Nil,
+}
+
+fn main() {
+    let list: List<i32> = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
+    println!("{:?}", list);
+}
+```
+> ```Box``` is a pointer type for heap allocation
