@@ -4,6 +4,7 @@
 * [Unique Type Validation](#validation)
 * [Recursive Data Types](#recursive)
 
+> need to create a tool for tracking code patterns; maybe create an mdbook that is relatively complicated
 
 ## Writing to a File <a name="fileWrite"></a>
 ```
@@ -43,7 +44,7 @@ enum BlockchainConsensus {
 
 ## Unique Type Validation <a name="validation"></a>
 
-> Use new method on a struct (or whatever the type is)
+> Use ```new``` method on a struct (or whatever the type is)
 
 
 ## Recursive Data Types <a name="recursive"></a>
